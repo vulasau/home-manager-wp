@@ -1,0 +1,620 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ResourceFlowDirection" xml:space="preserve">
+    <value>LeftToRight</value>
+    <comment>Controls the FlowDirection for all elements in the RootFrame. Set to the traditional direction of this resource file's language</comment>
+  </data>
+  <data name="ResourceLanguage" xml:space="preserve">
+    <value>en-US</value>
+    <comment>Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</comment>
+  </data>
+  <data name="ApplicationTitle" xml:space="preserve">
+    <value>HOME MANAGER</value>
+  </data>
+  <data name="AddButtonText" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="BalanceTabHeader" xml:space="preserve">
+    <value>Balance</value>
+  </data>
+  <data name="ConversionTabHeader" xml:space="preserve">
+    <value>Conversion</value>
+  </data>
+  <data name="DeleteButtonText" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="ExpenseTabHeader" xml:space="preserve">
+    <value>Expense</value>
+  </data>
+  <data name="IncomeTabHeader" xml:space="preserve">
+    <value>Income</value>
+  </data>
+  <data name="UpdateButtonText" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="AmountHeader" xml:space="preserve">
+    <value>Amount:</value>
+  </data>
+  <data name="BuyHeader" xml:space="preserve">
+    <value>Buy</value>
+  </data>
+  <data name="CategoriesSortOrderHeader" xml:space="preserve">
+    <value>Categories sort order:</value>
+  </data>
+  <data name="CategoryHeader" xml:space="preserve">
+    <value>Category:</value>
+  </data>
+  <data name="ClearDatabaseButtonText" xml:space="preserve">
+    <value>Clear database</value>
+  </data>
+  <data name="ConversionPageTitle" xml:space="preserve">
+    <value>Conversion</value>
+  </data>
+  <data name="CurrencyHeader" xml:space="preserve">
+    <value>Currency:</value>
+  </data>
+  <data name="DateHeader" xml:space="preserve">
+    <value>Date:</value>
+  </data>
+  <data name="DefaultCurrencyHeader" xml:space="preserve">
+    <value>Default currency:</value>
+  </data>
+  <data name="DefaultsTabHeader" xml:space="preserve">
+    <value>Defaults</value>
+  </data>
+  <data name="DescriptionHeaer" xml:space="preserve">
+    <value>Description:</value>
+  </data>
+  <data name="EditButtonText" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="ExpenseCategoriesTabHeader" xml:space="preserve">
+    <value>Expense Categories</value>
+  </data>
+  <data name="ExpenseHeaer" xml:space="preserve">
+    <value>Expense</value>
+  </data>
+  <data name="FromHeader" xml:space="preserve">
+    <value>From:</value>
+  </data>
+  <data name="IconHeader" xml:space="preserve">
+    <value>Icon:</value>
+  </data>
+  <data name="IncomeCategoriesTabHeader" xml:space="preserve">
+    <value>Income Categories</value>
+  </data>
+  <data name="IncomeHeader" xml:space="preserve">
+    <value>Income</value>
+  </data>
+  <data name="NameHeader" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="OptionsButtonText" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="OptionsPageTitle" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="PreviewHeader" xml:space="preserve">
+    <value>Preview:</value>
+  </data>
+  <data name="RateHeader" xml:space="preserve">
+    <value>Rate:</value>
+  </data>
+  <data name="RatesAutoUpdate" xml:space="preserve">
+    <value>Load rates automatically</value>
+  </data>
+  <data name="SearchButtonText" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="SellHeader" xml:space="preserve">
+    <value>Sell</value>
+  </data>
+  <data name="StatisticsButtonText" xml:space="preserve">
+    <value>Statistics</value>
+  </data>
+  <data name="StatisticsPageTitle" xml:space="preserve">
+    <value>Statistics</value>
+  </data>
+  <data name="ToHeader" xml:space="preserve">
+    <value>To:</value>
+  </data>
+  <data name="CategoryPageTitle" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="OperationPageTitle" xml:space="preserve">
+    <value>Operation</value>
+  </data>
+  <data name="TypeHeader" xml:space="preserve">
+    <value>Type:</value>
+  </data>
+  <data name="AllTimeButtonText" xml:space="preserve">
+    <value>All time</value>
+  </data>
+  <data name="BackButtonText" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="CurrentButtonText" xml:space="preserve">
+    <value>Current</value>
+  </data>
+  <data name="NextButtonText" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="NoDataAvailable" xml:space="preserve">
+    <value>No data available</value>
+  </data>
+  <data name="AddButtonShortText" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="OperationsLabel" xml:space="preserve">
+    <value>operations </value>
+  </data>
+  <data name="PersentageLabel" xml:space="preserve">
+    <value>Persentage:</value>
+  </data>
+  <data name="UsageStatisticsHeader" xml:space="preserve">
+    <value>Usage statistics for last month:</value>
+  </data>
+  <data name="AllTime" xml:space="preserve">
+    <value>All time</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Current month</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Usage" xml:space="preserve">
+    <value>Usage</value>
+  </data>
+  <data name="DefaultOperationFilterHeader" xml:space="preserve">
+    <value>Default operations filter:</value>
+  </data>
+  <data name="PerUnitHeader" xml:space="preserve">
+    <value>per unit</value>
+  </data>
+  <data name="RatesPageTitle" xml:space="preserve">
+    <value>Rates</value>
+  </data>
+  <data name="UidHeader" xml:space="preserve">
+    <value>Uid</value>
+  </data>
+  <data name="UnitsPerHeader" xml:space="preserve">
+    <value>Units per</value>
+  </data>
+  <data name="RatesButtonText" xml:space="preserve">
+    <value>Rates</value>
+  </data>
+  <data name="SkyDrivePageTitle" xml:space="preserve">
+    <value>SkyDrive</value>
+  </data>
+  <data name="DownloadButtonText" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="DownloadHeader" xml:space="preserve">
+    <value>Restore data from SkyDrive:</value>
+  </data>
+  <data name="SkyDriveButtonText" xml:space="preserve">
+    <value>SkyDrive</value>
+  </data>
+  <data name="UploadButtonText" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="UploadHeader" xml:space="preserve">
+    <value>Upload data to SkyDrive:</value>
+  </data>
+  <data name="SkyDriveProgressText" xml:space="preserve">
+    <value>Updating information...</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Last week</value>
+  </data>
+  <data name="ClearDatabaseCaption" xml:space="preserve">
+    <value>Attention!</value>
+  </data>
+  <data name="ClearDatabaseMessage" xml:space="preserve">
+    <value>Are you sure you want to delete all data?</value>
+  </data>
+  <data name="MonthExpenseHeader" xml:space="preserve">
+    <value>Total month expense:</value>
+  </data>
+  <data name="MonthIncomeHeader" xml:space="preserve">
+    <value>Total month income:</value>
+  </data>
+  <data name="DownloadFailedCaption" xml:space="preserve">
+    <value>Download Error!</value>
+  </data>
+  <data name="DownloadFailedMessage" xml:space="preserve">
+    <value>Download from SkyDrive failed. Local storage for application is broken. Please, reinstall the application.</value>
+  </data>
+  <data name="DownloadCompleteMessage" xml:space="preserve">
+    <value>Download completed successfully.</value>
+  </data>
+  <data name="DownloadErrorMessage" xml:space="preserve">
+    <value>Download failed. Bad internet connection or remote server doesn't responde or data is broken.</value>
+  </data>
+  <data name="DownloadProgressMessage" xml:space="preserve">
+    <value>Downloading information...</value>
+  </data>
+  <data name="ErrorCaption" xml:space="preserve">
+    <value>Failed</value>
+  </data>
+  <data name="InitializeErrorMessage" xml:space="preserve">
+    <value>Initialization failed. Bad internet connection or remote server doesn't responde.</value>
+  </data>
+  <data name="InitializeProgressMessage" xml:space="preserve">
+    <value>Initialization...</value>
+  </data>
+  <data name="OkCaption" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="UploadCompleteMessage" xml:space="preserve">
+    <value>Upload completed successfully.</value>
+  </data>
+  <data name="UploadErrorMessage" xml:space="preserve">
+    <value>Uploading failed. Bad internet connection or remote server doesn't responde.</value>
+  </data>
+  <data name="UploadProgressMessage" xml:space="preserve">
+    <value>Uploading information...</value>
+  </data>
+  <data name="RatesFormatErrorMessage" xml:space="preserve">
+    <value>Loading failed. Can't process received information, due to incorrect data format.</value>
+  </data>
+  <data name="RatesProgressMessage" xml:space="preserve">
+    <value>Loading rates...</value>
+  </data>
+  <data name="RatesWebErrorMessage" xml:space="preserve">
+    <value>Loading failed. Bad internet connection or server doesn't responde.</value>
+  </data>
+  <data name="FoodCategoryName" xml:space="preserve">
+    <value>Food</value>
+  </data>
+  <data name="SalaryCategoryName" xml:space="preserve">
+    <value>Salary</value>
+  </data>
+  <data name="TransportCategoryName" xml:space="preserve">
+    <value>Transport</value>
+  </data>
+  <data name="AttentionCaption" xml:space="preserve">
+    <value>Attention</value>
+  </data>
+  <data name="RemoveCategoryMessage" xml:space="preserve">
+    <value>Are you sure, you want to remove category '{0}' and {1} related operations?</value>
+  </data>
+  <data name="ConvertFromBase" xml:space="preserve">
+    <value>Convert from base currency</value>
+  </data>
+  <data name="AboutButtonText" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="AboutText" xml:space="preserve">
+    <value>This simple application will help you to control your finances and budget. 
+Available features:
+- Dynamic categories
+- Categorized operations
+- Different currencies and conversion operations
+- Statistics
+- World trade currency rates
+- Dynamic tiles
+- Flexible UI based on Microsoft Metro styles</value>
+  </data>
+  <data name="ContactsText" xml:space="preserve">
+    <value>Contacts:
+Any questions, suggestions and bug reports you can send to our support:</value>
+  </data>
+  <data name="AboutPageTitle" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="Mail" xml:space="preserve">
+    <value>homemanager.wp@gmail.com</value>
+  </data>
+  <data name="MailBody" xml:space="preserve">
+    <value>Type here your suggestions or bug descriptions.</value>
+  </data>
+  <data name="DataExportPageTitle" xml:space="preserve">
+    <value>Data Export</value>
+  </data>
+  <data name="ExportButtonText" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="IncludeConversions" xml:space="preserve">
+    <value>Conversions</value>
+  </data>
+  <data name="IncludeExpenses" xml:space="preserve">
+    <value>Expenses</value>
+  </data>
+  <data name="SelectDataHeader" xml:space="preserve">
+    <value>Select data to export:</value>
+  </data>
+  <data name="DataExportCompleteMessage" xml:space="preserve">
+    <value>Files: '{0}' successfully saved to 'D:\HomeManager' directory.</value>
+  </data>
+  <data name="AnswerHeader" xml:space="preserve">
+    <value>Enter answer:</value>
+  </data>
+  <data name="ChangePasswordMessage" xml:space="preserve">
+    <value>Please, change your password or turn off password protection.</value>
+  </data>
+  <data name="ConfirmPasswordHeader" xml:space="preserve">
+    <value>Confirm password:</value>
+  </data>
+  <data name="EnterButtonText" xml:space="preserve">
+    <value>Enter</value>
+  </data>
+  <data name="ForgotPasswordHeader" xml:space="preserve">
+    <value>Forgot your password?</value>
+  </data>
+  <data name="LogInPageHeader" xml:space="preserve">
+    <value>Welcome</value>
+  </data>
+  <data name="PasswordHeader" xml:space="preserve">
+    <value>Enter password:</value>
+  </data>
+  <data name="PasswordPageHeader" xml:space="preserve">
+    <value>Protection</value>
+  </data>
+  <data name="ProtectButtonText" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="ProtectionFormErrorLabel" xml:space="preserve">
+    <value>Please, fill all fields and make sure, that password and confirmation are equal.</value>
+  </data>
+  <data name="ProtectWithPassword" xml:space="preserve">
+    <value>Protect with password</value>
+  </data>
+  <data name="QuestionHeader" xml:space="preserve">
+    <value>Enter question:</value>
+  </data>
+  <data name="RestoreButtonText" xml:space="preserve">
+    <value>Restore</value>
+  </data>
+  <data name="WrongPasswordMessage" xml:space="preserve">
+    <value>Wrong password. Please, try again or click 'Restore' button.</value>
+  </data>
+  <data name="IncludeIncomes" xml:space="preserve">
+    <value>Incomes</value>
+  </data>
+  <data name="ProtectionButtonText" xml:space="preserve">
+    <value>Protection</value>
+  </data>
+  <data name="BaseAccountName" xml:space="preserve">
+    <value>Wallet</value>
+  </data>
+  <data name="AccountsButtonText" xml:space="preserve">
+    <value>Accounts and Planing</value>
+  </data>
+  <data name="AddFailedMessage" xml:space="preserve">
+    <value>Item with the same name already exist</value>
+  </data>
+  <data name="RemoveAccountMessage" xml:space="preserve">
+    <value>Are you sure, you want to remove account '{0}' and {1} related operations?</value>
+  </data>
+  <data name="AccountHeader" xml:space="preserve">
+    <value>Account:</value>
+  </data>
+  <data name="ClearAmountHeader" xml:space="preserve">
+    <value>Clear amount:</value>
+  </data>
+  <data name="DepositCalculatorButtonText" xml:space="preserve">
+    <value>Deposit Calculator</value>
+  </data>
+  <data name="DepositCalculatorHeader" xml:space="preserve">
+    <value>Deposit calculator:</value>
+  </data>
+  <data name="DepositHeader" xml:space="preserve">
+    <value>Deposit:</value>
+  </data>
+  <data name="DepositMonthHeader" xml:space="preserve">
+    <value>Monthly deposit:</value>
+  </data>
+  <data name="PercentHeader" xml:space="preserve">
+    <value>Percent (%):</value>
+  </data>
+  <data name="PeriodHeader" xml:space="preserve">
+    <value>Period (month):</value>
+  </data>
+  <data name="ResultHeader" xml:space="preserve">
+    <value>Result:</value>
+  </data>
+  <data name="ToolsButtonText" xml:space="preserve">
+    <value>Tools</value>
+  </data>
+  <data name="ToolsPageHeader" xml:space="preserve">
+    <value>Tools</value>
+  </data>
+  <data name="TotalAmountHeader" xml:space="preserve">
+    <value>Total amount: </value>
+  </data>
+  <data name="DepositCalculatorPageHeader" xml:space="preserve">
+    <value>Deposit Calculator</value>
+  </data>
+  <data name="CreditCalculatorButtonText" xml:space="preserve">
+    <value>Credit Calculator</value>
+  </data>
+  <data name="CreditCalculatorHeader" xml:space="preserve">
+    <value>Credit calculator:</value>
+  </data>
+  <data name="CreditCalculatorPageHeader" xml:space="preserve">
+    <value>Credit Calculator</value>
+  </data>
+  <data name="FirstPaymentHeader" xml:space="preserve">
+    <value>First payment:</value>
+  </data>
+  <data name="FullPriceHeader" xml:space="preserve">
+    <value>Full price:</value>
+  </data>
+  <data name="IsPossibleHeader" xml:space="preserve">
+    <value>Availability:</value>
+  </data>
+  <data name="PaymentMonthHeader" xml:space="preserve">
+    <value>Monthly payment:</value>
+  </data>
+  <data name="False" xml:space="preserve">
+    <value>Not available</value>
+  </data>
+  <data name="True" xml:space="preserve">
+    <value>Available</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Last month</value>
+  </data>
+  <data name="AccountNameErrorText" xml:space="preserve">
+    <value>Account with the same name already exist</value>
+  </data>
+  <data name="AccountPageTitle" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="CriticalLimitsHeader" xml:space="preserve">
+    <value>Pay attention on these limits:</value>
+  </data>
+  <data name="DayLable" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="LimitAccountHeader" xml:space="preserve">
+    <value>Limit this account</value>
+  </data>
+  <data name="LimitCategoryHeader" xml:space="preserve">
+    <value>Limit this category</value>
+  </data>
+  <data name="LimitHeader" xml:space="preserve">
+    <value>Limit:</value>
+  </data>
+  <data name="LimitInformationHeader" xml:space="preserve">
+    <value>Limit information:</value>
+  </data>
+  <data name="ReachLimitText" xml:space="preserve">
+    <value>Reaches limit in</value>
+  </data>
+  <data name="ReachLimitTextDaysPart" xml:space="preserve">
+    <value>days</value>
+  </data>
+  <data name="BudgetCategoryHeader" xml:space="preserve">
+    <value>Include to monthly budget</value>
+  </data>
+  <data name="BudgetButtonText" xml:space="preserve">
+    <value>Budget</value>
+  </data>
+  <data name="BudgetHeader" xml:space="preserve">
+    <value>Budget:</value>
+  </data>
+  <data name="BudgetPageHeader" xml:space="preserve">
+    <value>Budget</value>
+  </data>
+</root>

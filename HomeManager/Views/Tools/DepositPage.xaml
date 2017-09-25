@@ -1,0 +1,125 @@
+﻿<phone:PhoneApplicationPage x:Class="HomeManager.Views.Tools.DepositPage"
+							xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+							xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+							xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+							xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+							xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+							xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+							FontFamily="{StaticResource PhoneFontFamilyNormal}"
+							FontSize="{StaticResource PhoneFontSizeNormal}"
+							Foreground="{StaticResource PhoneForegroundBrush}"
+							SupportedOrientations="Portrait"
+							Orientation="Portrait"
+							mc:Ignorable="d"
+							shell:SystemTray.IsVisible="True">
+
+	<Grid x:Name="LayoutRoot"
+		  Background="Transparent">
+
+		<Grid.Resources>
+			<Style TargetType="TextBox">
+				<Setter Property="VerticalAlignment"
+						Value="Top" />
+			</Style>
+		</Grid.Resources>
+
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<StackPanel>
+			<TextBlock Text="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.ApplicationTitle}"
+					   Style="{StaticResource PhoneTextNormalStyle}" />
+			<TextBlock Text="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.DepositCalculatorPageHeader}"
+					   Style="{StaticResource TextBlockPageHeaderStyle}" />
+		</StackPanel>
+
+		<Grid x:Name="ContentPanel"
+			  Grid.Row="1">
+			
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="120" />
+				<ColumnDefinition Width="4*" />
+				<ColumnDefinition Width="1*" />
+			</Grid.ColumnDefinitions>
+
+			<TextBlock Text="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.DepositHeader}"
+					   Style="{StaticResource TextBlockInputHeaderStyle}" />
+			<TextBox Grid.Column="1"
+					 InputScope="Number"
+					 Text="{Binding Deposit, Mode=TwoWay, Converter={StaticResource OneWayToSourceBindingConverter}}" />
+
+			<TextBlock Grid.Row="1"
+					   Text="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.DepositMonthHeader}"
+					   TextWrapping="Wrap"
+					   Style="{StaticResource TextBlockInputHeaderStyle}" />
+			<TextBox Grid.Row="1" 
+					 Grid.Column="1"
+					 InputScope="Number"
+					 Text="{Binding DepositMonth, Mode=TwoWay, Converter={StaticResource OneWayToSourceBindingConverter}}" />
+
+			<TextBlock Grid.Row="2"
+					   Text="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.PercentHeader}"
+					   Style="{StaticResource TextBlockInputHeaderStyle}" />
+			<TextBox Grid.Row="2"
+					 Grid.Column="1"
+					 InputScope="Number"
+					 Text="{Binding Percent, Mode=TwoWay, Converter={StaticResource OneWayToSourceBindingConverter}}" />
+
+			<TextBlock Grid.Row="3"
+					   Text="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.PeriodHeader}"
+					   TextWrapping="Wrap"
+					   Style="{StaticResource TextBlockInputHeaderStyle}" />
+			<TextBox Grid.Row="3"
+					 Grid.Column="1"
+					 InputScope="Number"
+					 Text="{Binding Period, Mode=TwoWay, Converter={StaticResource OneWayToSourceBindingConverter}}" />
+
+			<ContentControl Grid.Row="4"
+							Grid.ColumnSpan="3"
+							Margin="0 15 0 0"
+							HorizontalContentAlignment="Stretch"
+							VerticalContentAlignment="Stretch"
+							Visibility="{Binding Ready, Converter={StaticResource BoolToVisibilityConverter}}">
+				<ScrollViewer>
+					<StackPanel DataContext="{Binding Info}">
+						<TextBlock Text="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.ResultHeader}"
+								   FontSize="24"
+								   Foreground="{StaticResource PhoneForegroundBrush}"
+								   Style="{StaticResource TextBlockHeaderVerticalStyle}" />
+
+						<TextBlock Style="{StaticResource TextBlockInputHeaderStyle}">
+						<Run Text="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.TotalAmountHeader}" />
+						<Run Text="{Binding TotalAmount}"
+							 Foreground="{StaticResource PhoneForegroundBrush}" />
+						</TextBlock>
+
+						<TextBlock Style="{StaticResource TextBlockInputHeaderStyle}">
+						<Run Text="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.ClearAmountHeader}" />
+						<Run Text="{Binding ClearAmount}"
+							 Foreground="{StaticResource PhoneForegroundBrush}" />
+						</TextBlock>
+
+						<TextBlock Style="{StaticResource TextBlockInputHeaderStyle}">
+						<Run Text="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.IncomeHeader}" />
+						<Run Text=":" />
+						<Run Text="{Binding Income}"
+							 Foreground="{StaticResource PhoneForegroundBrush}" />
+						</TextBlock>
+
+					</StackPanel>
+				</ScrollViewer>
+			</ContentControl>
+
+		</Grid>
+	</Grid>
+
+</phone:PhoneApplicationPage>

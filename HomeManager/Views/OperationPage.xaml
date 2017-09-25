@@ -1,0 +1,181 @@
+﻿<phone:PhoneApplicationPage x:Class="HomeManager.Views.OperationPage"
+							xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+							xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+							xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+							xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+							xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+							xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+							xmlns:uc="clr-namespace:HomeManager.Views.Controls"
+							xmlns:wpt="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+							xmlns:scm="clr-namespace:System.ComponentModel;assembly=System.Windows"
+							xmlns:cmshell="clr-namespace:Caliburn.Micro.BindableAppBar;assembly=Caliburn.Micro.BindableAppBar"
+							FontFamily="{StaticResource PhoneFontFamilyNormal}"
+							FontSize="{StaticResource PhoneFontSizeNormal}"
+							Foreground="{StaticResource PhoneForegroundBrush}"
+							SupportedOrientations="Portrait"
+							Orientation="Portrait"
+							mc:Ignorable="d"
+							shell:SystemTray.IsVisible="True">
+	<shell:SystemTray.ProgressIndicator>
+		<shell:ProgressIndicator IsIndeterminate="True"
+								 IsVisible="{Binding InProgress}"
+								 Text="{Binding ProgressMessage}" />
+	</shell:SystemTray.ProgressIndicator>
+
+	<Grid x:Name="LayoutRoot"
+		  Background="Transparent">
+
+		<Grid.Resources>
+			<ResourceDictionary>
+				<DataTemplate x:Key="CategoryItemTemplate">
+					<StackPanel Orientation="Horizontal">
+						<Rectangle Style="{StaticResource RectangleImageContainerStyle}">
+							<Rectangle.OpacityMask>
+								<ImageBrush ImageSource="{Binding IconSource.Source}" />
+							</Rectangle.OpacityMask>
+						</Rectangle>
+						<TextBlock Text="{Binding Name}"
+								   FontSize="24"
+								   Margin="5 0"
+								   VerticalAlignment="Center" />
+					</StackPanel>
+				</DataTemplate>
+
+				<DataTemplate x:Key="CategoryFullModeItemTemplate">
+					<StackPanel Orientation="Horizontal"
+								Margin="0 2">
+						<Rectangle Style="{StaticResource RectangleImageContainerBigStyle}">
+							<Rectangle.OpacityMask>
+								<ImageBrush ImageSource="{Binding IconSource.Source}" />
+							</Rectangle.OpacityMask>
+						</Rectangle>
+						<TextBlock Text="{Binding Name}"
+								   Style="{StaticResource TextBlockListItemStyle}" />
+					</StackPanel>
+				</DataTemplate>
+
+				<DataTemplate x:Key="CurrencyItemTemplate">
+					<TextBlock Margin="0"
+							   Text="{Binding}"
+							   Style="{StaticResource TextBlockListItemStyle}" />
+				</DataTemplate>
+			</ResourceDictionary>
+		</Grid.Resources>
+
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<StackPanel Grid.Row="0">
+			<TextBlock Text="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}"
+					   Style="{StaticResource PhoneTextNormalStyle}" />
+			<TextBlock Text="{Binding Path=LocalizedResources.OperationPageTitle, Source={StaticResource LocalizedStrings}}"
+					   Style="{StaticResource TextBlockPageHeaderStyle}" />
+		</StackPanel>
+
+		<Grid x:Name="ContentPanel"
+			  Grid.Row="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+
+			<ScrollViewer>
+				<StackPanel>
+					<StackPanel Orientation="Horizontal">
+						<RadioButton GroupName="Type"
+									 Content="{Binding Path=LocalizedResources.ExpenseHeaer, Source={StaticResource LocalizedStrings}}"
+									 Name="ExpenseRadioButton"
+									 IsChecked="{Binding IsExpense, Mode=TwoWay}" />
+						<RadioButton GroupName="Type"
+									 Content="{Binding Path=LocalizedResources.IncomeHeader, Source={StaticResource LocalizedStrings}}"
+									 Name="IncomeRadioButton"
+									 IsChecked="{Binding IsIncome, Mode=TwoWay}" />
+					</StackPanel>
+
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="Auto" />
+						</Grid.ColumnDefinitions>
+
+						<wpt:DatePicker Name="DateSelector"
+										Header="{Binding Path=LocalizedResources.DateHeader, Source={StaticResource LocalizedStrings}}"
+										Value="{Binding State.Date, Mode=TwoWay}"
+										Style="{StaticResource DatePickerInlineStyle}" />
+
+						<StackPanel Grid.Column="1">
+							<TextBlock Text="{Binding Path=LocalizedResources.AmountHeader, Source={StaticResource LocalizedStrings}}"
+									   Style="{StaticResource TextBlockHeaderVerticalStyle}" />
+							<TextBox InputScope="Number"
+									 Text="{Binding State.Amount, Mode=TwoWay, Converter={StaticResource OneWayToSourceBindingConverter}}"
+									 Style="{StaticResource TextBoxInlineTopHeaderedStyle}" />
+						</StackPanel>
+
+						<wpt:ListPicker Grid.Column="2"
+										Margin="10 0"
+										Header="{Binding Path=LocalizedResources.CurrencyHeader, Source={StaticResource LocalizedStrings}}"
+										ItemsSource="{Binding Currencies}"
+										SelectedItem="{Binding State.Currency, Mode=TwoWay}"
+										FullModeItemTemplate="{StaticResource CurrencyItemTemplate}"
+										Style="{StaticResource ListPickerInlineStyle}" />
+					</Grid>
+
+					<wpt:ListPicker Margin="10 0"
+									Header="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.CategoryHeader}"
+									ItemsSource="{Binding Categories}"
+									SelectedItem="{Binding State.Category, Mode=TwoWay}"
+									ItemTemplate="{StaticResource CategoryItemTemplate}"
+									FullModeItemTemplate="{StaticResource CategoryFullModeItemTemplate}"
+									Style="{StaticResource ListPickerBaseStyle}"
+									ExpansionMode="FullScreenOnly" />
+
+					<StackPanel Grid.Column="1"
+								Margin="0 10 0 0">
+						<TextBlock Text="{Binding Path=LocalizedResources.DescriptionHeaer, Source={StaticResource LocalizedStrings}}"
+								   Style="{StaticResource TextBlockHeaderVerticalStyle}" />
+						<TextBox Grid.Column="1"
+								 InputScope="Text"
+								 Text="{Binding State.Description, Mode=TwoWay}"
+								 Style="{StaticResource TextBoxInlineTopHeaderedStyle}" />
+					</StackPanel>
+
+					<StackPanel>
+						<CheckBox Name="ConvertCheckBox"
+								  IsEnabled="{Binding CanConvert}"
+								  IsChecked="{Binding Convert, Mode=TwoWay}"
+								  Content="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.ConvertFromBase}" />
+						<StackPanel Visibility="{Binding ElementName=ConvertCheckBox, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}">
+							<TextBlock Text="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.RateHeader}"
+									   Style="{StaticResource TextBlockHeaderVerticalStyle}" />
+							<TextBox Text="{Binding Rate, Mode=TwoWay, Converter={StaticResource OneWayToSourceBindingConverter}}"
+									 Style="{StaticResource TextBoxInlineTopHeaderedStyle}"
+									 InputScope="Number" />
+							<TextBlock Text="{Binding Path=LocalizedResources.PreviewHeader, Source={StaticResource LocalizedStrings}}"
+									   Style="{StaticResource TextBlockHeaderVerticalStyle}" />
+							<TextBlock Margin="10 0 0 0">
+								<Run Text="{Binding Amount}" />
+								<Run Text="{Binding BaseCurrency}" />
+							</TextBlock>
+
+						</StackPanel>
+					</StackPanel>
+				</StackPanel>
+			</ScrollViewer>
+
+			<cmshell:BindableAppBar Grid.Row="2">
+				<cmshell:BindableAppBarButton Text="{Binding Path=LocalizedResources.UpdateButtonText, Source={StaticResource LocalizedStrings}}"
+											  IconUri="/Icons/Application/Save.png"
+											  IsEnabled="{Binding Ready}"
+											  Click="OnSaveClick" />
+				<cmshell:BindableAppBarButton Text="{Binding Path=LocalizedResources.DeleteButtonText, Source={StaticResource LocalizedStrings}}"
+											  IconUri="/Icons/Application/Delete.png"
+											  Visibility="{Binding EditMode, Converter={StaticResource BoolToVisibilityConverter}}"
+											  Click="OnRemoveClick" />
+			</cmshell:BindableAppBar>
+		</Grid>
+	</Grid>
+
+</phone:PhoneApplicationPage>

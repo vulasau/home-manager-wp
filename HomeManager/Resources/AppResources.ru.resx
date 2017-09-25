@@ -1,0 +1,611 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ResourceFlowDirection" xml:space="preserve">
+    <value>LeftToRight</value>
+    <comment>Controls the FlowDirection for all elements in the RootFrame. Set to the traditional direction of this resource file's language</comment>
+  </data>
+  <data name="ResourceLanguage" xml:space="preserve">
+    <value>ru</value>
+    <comment>Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</comment>
+  </data>
+  <data name="ApplicationTitle" xml:space="preserve">
+    <value>ДОМАШНИЙ МЕНЕДЖЕР</value>
+  </data>
+  <data name="AddButtonText" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="BalanceTabHeader" xml:space="preserve">
+    <value>Баланс</value>
+  </data>
+  <data name="ConversionTabHeader" xml:space="preserve">
+    <value>Конверсия</value>
+  </data>
+  <data name="DeleteButtonText" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="ExpenseTabHeader" xml:space="preserve">
+    <value>Расходы</value>
+  </data>
+  <data name="IncomeTabHeader" xml:space="preserve">
+    <value>Доходы</value>
+  </data>
+  <data name="UpdateButtonText" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="AmountHeader" xml:space="preserve">
+    <value>Сумма:</value>
+  </data>
+  <data name="BuyHeader" xml:space="preserve">
+    <value>Покупка</value>
+  </data>
+  <data name="CategoriesSortOrderHeader" xml:space="preserve">
+    <value>Сортировка категорий по:</value>
+  </data>
+  <data name="CategoryHeader" xml:space="preserve">
+    <value>Категория:</value>
+  </data>
+  <data name="ClearDatabaseButtonText" xml:space="preserve">
+    <value>Удалить все данные</value>
+  </data>
+  <data name="ConversionPageTitle" xml:space="preserve">
+    <value>Конверсия</value>
+  </data>
+  <data name="CurrencyHeader" xml:space="preserve">
+    <value>Валюта:</value>
+  </data>
+  <data name="DateHeader" xml:space="preserve">
+    <value>Дата:</value>
+  </data>
+  <data name="DefaultCurrencyHeader" xml:space="preserve">
+    <value>Базовая валюта:</value>
+  </data>
+  <data name="DefaultsTabHeader" xml:space="preserve">
+    <value>Базовые</value>
+  </data>
+  <data name="DescriptionHeaer" xml:space="preserve">
+    <value>Описание:</value>
+  </data>
+  <data name="EditButtonText" xml:space="preserve">
+    <value>Изменить</value>
+  </data>
+  <data name="ExpenseCategoriesTabHeader" xml:space="preserve">
+    <value>Категории расходов</value>
+  </data>
+  <data name="ExpenseHeaer" xml:space="preserve">
+    <value>Расходы</value>
+  </data>
+  <data name="FromHeader" xml:space="preserve">
+    <value>С:</value>
+  </data>
+  <data name="IconHeader" xml:space="preserve">
+    <value>Иконка:</value>
+  </data>
+  <data name="IncomeCategoriesTabHeader" xml:space="preserve">
+    <value>Категории доходов</value>
+  </data>
+  <data name="IncomeHeader" xml:space="preserve">
+    <value>Доходы</value>
+  </data>
+  <data name="NameHeader" xml:space="preserve">
+    <value>Название:</value>
+  </data>
+  <data name="OptionsButtonText" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="OptionsPageTitle" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="PreviewHeader" xml:space="preserve">
+    <value>Просмотр:</value>
+  </data>
+  <data name="RateHeader" xml:space="preserve">
+    <value>Курс:</value>
+  </data>
+  <data name="RatesAutoUpdate" xml:space="preserve">
+    <value>Загружать курсы валют</value>
+  </data>
+  <data name="SearchButtonText" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="SellHeader" xml:space="preserve">
+    <value>Продажа</value>
+  </data>
+  <data name="StatisticsButtonText" xml:space="preserve">
+    <value>Статистика</value>
+  </data>
+  <data name="StatisticsPageTitle" xml:space="preserve">
+    <value>Статистика</value>
+  </data>
+  <data name="ToHeader" xml:space="preserve">
+    <value>На:</value>
+  </data>
+  <data name="CategoryPageTitle" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+  <data name="OperationPageTitle" xml:space="preserve">
+    <value>Операция</value>
+  </data>
+  <data name="TypeHeader" xml:space="preserve">
+    <value>Тип:</value>
+  </data>
+  <data name="AllTimeButtonText" xml:space="preserve">
+    <value>За всё время</value>
+  </data>
+  <data name="BackButtonText" xml:space="preserve">
+    <value>Пред. месяц</value>
+  </data>
+  <data name="CurrentButtonText" xml:space="preserve">
+    <value>Тек. месяц</value>
+  </data>
+  <data name="NextButtonText" xml:space="preserve">
+    <value>След. месяц</value>
+  </data>
+  <data name="NoDataAvailable" xml:space="preserve">
+    <value>Нет данных</value>
+  </data>
+  <data name="AddButtonShortText" xml:space="preserve">
+    <value>Доб.</value>
+  </data>
+  <data name="OperationsLabel" xml:space="preserve">
+    <value>операций</value>
+  </data>
+  <data name="PersentageLabel" xml:space="preserve">
+    <value>Процент:</value>
+  </data>
+  <data name="UsageStatisticsHeader" xml:space="preserve">
+    <value>Использование за последний месяц:</value>
+  </data>
+  <data name="AllTime" xml:space="preserve">
+    <value>Всё время</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Текущий месяц</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Имени</value>
+  </data>
+  <data name="Usage" xml:space="preserve">
+    <value>Использованию</value>
+  </data>
+  <data name="DefaultOperationFilterHeader" xml:space="preserve">
+    <value>Показывать операции за:</value>
+  </data>
+  <data name="PerUnitHeader" xml:space="preserve">
+    <value>за единицу</value>
+  </data>
+  <data name="RatesPageTitle" xml:space="preserve">
+    <value>Курсы валют</value>
+  </data>
+  <data name="UidHeader" xml:space="preserve">
+    <value>Uid</value>
+  </data>
+  <data name="UnitsPerHeader" xml:space="preserve">
+    <value>Единиц за</value>
+  </data>
+  <data name="RatesButtonText" xml:space="preserve">
+    <value>Курсы валют</value>
+  </data>
+  <data name="DownloadButtonText" xml:space="preserve">
+    <value>Загрузить</value>
+  </data>
+  <data name="DownloadHeader" xml:space="preserve">
+    <value>Загрузить данные из SkyDrive</value>
+  </data>
+  <data name="UploadButtonText" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="UploadHeader" xml:space="preserve">
+    <value>Сохранить данные в SkyDrive</value>
+  </data>
+  <data name="SkyDriveProgressText" xml:space="preserve">
+    <value>Обновление информации...</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Последняя неделя</value>
+  </data>
+  <data name="ClearDatabaseCaption" xml:space="preserve">
+    <value>Внимание!</value>
+  </data>
+  <data name="ClearDatabaseMessage" xml:space="preserve">
+    <value>Вы уверены, что хотите удалить все данные?</value>
+  </data>
+  <data name="MonthExpenseHeader" xml:space="preserve">
+    <value>Расход за последний месяц:</value>
+  </data>
+  <data name="MonthIncomeHeader" xml:space="preserve">
+    <value>Доход за последний месяц:</value>
+  </data>
+  <data name="DownloadFailedCaption" xml:space="preserve">
+    <value>Ошибка Загрузки!</value>
+  </data>
+  <data name="DownloadFailedMessage" xml:space="preserve">
+    <value>Загрузка данных из хранилища SkyDrive была прервана. Локальное хранилище приложения повреждено. Пожалуйста, переустановите программу.</value>
+  </data>
+  <data name="DownloadCompleteMessage" xml:space="preserve">
+    <value>Загрузка данных успешно завершена.</value>
+  </data>
+  <data name="DownloadErrorMessage" xml:space="preserve">
+    <value>Загрузка данных прервана. ошибка соединения или удалённый сервер не отвечает, или данные испорчены.</value>
+  </data>
+  <data name="DownloadProgressMessage" xml:space="preserve">
+    <value>Загрузка данных...</value>
+  </data>
+  <data name="ErrorCaption" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="InitializeErrorMessage" xml:space="preserve">
+    <value>Инициализация прервана. Ошибка соединения или удалённый сервер не отвечает.</value>
+  </data>
+  <data name="InitializeProgressMessage" xml:space="preserve">
+    <value>Инициализация...</value>
+  </data>
+  <data name="OkCaption" xml:space="preserve">
+    <value>Завершено</value>
+  </data>
+  <data name="UploadCompleteMessage" xml:space="preserve">
+    <value>Сохранение данных успешно завершено.</value>
+  </data>
+  <data name="UploadErrorMessage" xml:space="preserve">
+    <value>Сохранение данных прервано. Ошибка соединения или удалённый сервер не отвечает.</value>
+  </data>
+  <data name="UploadProgressMessage" xml:space="preserve">
+    <value>Сохранение данных...</value>
+  </data>
+  <data name="RatesFormatErrorMessage" xml:space="preserve">
+    <value>Загрузка курсов валют прервана. Невозможно обработать полученную информацию. Неправильный формат полученных данных.</value>
+  </data>
+  <data name="RatesProgressMessage" xml:space="preserve">
+    <value>Загрузка курсов валют...</value>
+  </data>
+  <data name="RatesWebErrorMessage" xml:space="preserve">
+    <value>Загрузка курсов валют прервана. Ошибка соединения или удалённый сервер не отвечает.</value>
+  </data>
+  <data name="FoodCategoryName" xml:space="preserve">
+    <value>Продукты</value>
+  </data>
+  <data name="SalaryCategoryName" xml:space="preserve">
+    <value>Зарплата</value>
+  </data>
+  <data name="TransportCategoryName" xml:space="preserve">
+    <value>Транспорт</value>
+  </data>
+  <data name="AttentionCaption" xml:space="preserve">
+    <value>Внимание</value>
+  </data>
+  <data name="RemoveCategoryMessage" xml:space="preserve">
+    <value>Вы уверены, что хотите удалить категорию '{0}' и {1} связанных операций?</value>
+  </data>
+  <data name="ConvertFromBase" xml:space="preserve">
+    <value>Конвертировать из базовой валюты</value>
+  </data>
+  <data name="AboutButtonText" xml:space="preserve">
+    <value>О программе</value>
+  </data>
+  <data name="AboutText" xml:space="preserve">
+    <value>Это простое приложение поможет вам контролировать ваш бюджет. 
+Доступные функции:
+- Динамические категории
+- Операции по категориям
+- Различные валюты и операции конверсии валют
+- Статистика
+- Курсы валют согласно мировым торгам
+- Динамические иконки
+- Гибкий интерфейс постоенный на стилях Microsoft Metro</value>
+  </data>
+  <data name="ContactsText" xml:space="preserve">
+    <value>Контакты:
+Любые вопросы, предложения или отчёты об ошибках присылайте в нашу службу поддержки:</value>
+  </data>
+  <data name="AboutPageTitle" xml:space="preserve">
+    <value>О программе</value>
+  </data>
+  <data name="MailBody" xml:space="preserve">
+    <value>Напишите здесь ваши предложения или описания неисправностей.</value>
+  </data>
+  <data name="DataExportPageTitle" xml:space="preserve">
+    <value>Экспорт данных</value>
+  </data>
+  <data name="ExportButtonText" xml:space="preserve">
+    <value>Экспорт</value>
+  </data>
+  <data name="IncludeConversions" xml:space="preserve">
+    <value>Конверсии</value>
+  </data>
+  <data name="IncludeExpenses" xml:space="preserve">
+    <value>Расходы</value>
+  </data>
+  <data name="SelectDataHeader" xml:space="preserve">
+    <value>Выберите данные для экспорта</value>
+  </data>
+  <data name="DataExportCompleteMessage" xml:space="preserve">
+    <value>Файлы: '{0}' успешно сохранены в каталоге 'D:\HomeManager'.</value>
+  </data>
+  <data name="AnswerHeader" xml:space="preserve">
+    <value>Введите ответ:</value>
+  </data>
+  <data name="ChangePasswordMessage" xml:space="preserve">
+    <value>Пожалуйста, измените пароль или отключите защиту.</value>
+  </data>
+  <data name="ConfirmPasswordHeader" xml:space="preserve">
+    <value>Подтвердите пароль:</value>
+  </data>
+  <data name="EnterButtonText" xml:space="preserve">
+    <value>Войти</value>
+  </data>
+  <data name="ForgotPasswordHeader" xml:space="preserve">
+    <value>Забыли ваш пароль?</value>
+  </data>
+  <data name="LogInPageHeader" xml:space="preserve">
+    <value>Добро пожаловать</value>
+  </data>
+  <data name="PasswordHeader" xml:space="preserve">
+    <value>Введите пароль:</value>
+  </data>
+  <data name="PasswordPageHeader" xml:space="preserve">
+    <value>Защита</value>
+  </data>
+  <data name="ProtectButtonText" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="ProtectionFormErrorLabel" xml:space="preserve">
+    <value>Пожалуйста, заполните все поля и убедитесь, что пароль и его подтверждение одинаковы.</value>
+  </data>
+  <data name="ProtectWithPassword" xml:space="preserve">
+    <value>Защитить паролем</value>
+  </data>
+  <data name="QuestionHeader" xml:space="preserve">
+    <value>Введите секретный вопрос:</value>
+  </data>
+  <data name="RestoreButtonText" xml:space="preserve">
+    <value>Восстановить</value>
+  </data>
+  <data name="WrongPasswordMessage" xml:space="preserve">
+    <value>Неправильный пароль. Пожалуйста, попробуйте ещё раз или нажмите кнопку 'Восстановить'.</value>
+  </data>
+  <data name="IncludeIncomes" xml:space="preserve">
+    <value>Доходы</value>
+  </data>
+  <data name="ProtectionButtonText" xml:space="preserve">
+    <value>Защита</value>
+  </data>
+  <data name="BaseAccountName" xml:space="preserve">
+    <value>Кошелёк</value>
+  </data>
+  <data name="AccountsButtonText" xml:space="preserve">
+    <value>Счета и Планирование</value>
+  </data>
+  <data name="AddFailedMessage" xml:space="preserve">
+    <value>Элемент с заданным именем уже существует</value>
+  </data>
+  <data name="RemoveAccountMessage" xml:space="preserve">
+    <value>Вы уверены, что хотите удалить счёт '{0}' и {1} связанных операций?</value>
+  </data>
+  <data name="AccountHeader" xml:space="preserve">
+    <value>Счёт:</value>
+  </data>
+  <data name="ClearAmountHeader" xml:space="preserve">
+    <value>Без процентов:</value>
+  </data>
+  <data name="DepositCalculatorButtonText" xml:space="preserve">
+    <value>Калькулятор вкладов</value>
+  </data>
+  <data name="DepositCalculatorHeader" xml:space="preserve">
+    <value>Калькулятор вкладов:</value>
+  </data>
+  <data name="DepositHeader" xml:space="preserve">
+    <value>Вклад:</value>
+  </data>
+  <data name="DepositMonthHeader" xml:space="preserve">
+    <value>Месячный вклад:</value>
+  </data>
+  <data name="PercentHeader" xml:space="preserve">
+    <value>Процент (%):</value>
+  </data>
+  <data name="PeriodHeader" xml:space="preserve">
+    <value>Период (месяцев):</value>
+  </data>
+  <data name="ResultHeader" xml:space="preserve">
+    <value>Результат:</value>
+  </data>
+  <data name="ToolsButtonText" xml:space="preserve">
+    <value>Инструменты</value>
+  </data>
+  <data name="ToolsPageHeader" xml:space="preserve">
+    <value>Инструменты</value>
+  </data>
+  <data name="TotalAmountHeader" xml:space="preserve">
+    <value>Общая сумма:</value>
+  </data>
+  <data name="DepositCalculatorPageHeader" xml:space="preserve">
+    <value>Калькулятор вкладов</value>
+  </data>
+  <data name="CreditCalculatorButtonText" xml:space="preserve">
+    <value>Кредитный калькулятор</value>
+  </data>
+  <data name="CreditCalculatorHeader" xml:space="preserve">
+    <value>Кредитный калькулятор:</value>
+  </data>
+  <data name="CreditCalculatorPageHeader" xml:space="preserve">
+    <value>Кредитный калькулятор</value>
+  </data>
+  <data name="FirstPaymentHeader" xml:space="preserve">
+    <value>Первоначальный взнос:</value>
+  </data>
+  <data name="FullPriceHeader" xml:space="preserve">
+    <value>Полная стоимость:</value>
+  </data>
+  <data name="IsPossibleHeader" xml:space="preserve">
+    <value>Доступность:</value>
+  </data>
+  <data name="PaymentMonthHeader" xml:space="preserve">
+    <value>Ежемесячный платеж:</value>
+  </data>
+  <data name="False" xml:space="preserve">
+    <value>Не доступен</value>
+  </data>
+  <data name="True" xml:space="preserve">
+    <value>Доступен</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Последний месяц</value>
+  </data>
+  <data name="AccountNameErrorText" xml:space="preserve">
+    <value>Счёт с таким именем уже существует</value>
+  </data>
+  <data name="AccountPageTitle" xml:space="preserve">
+    <value>Счёт</value>
+  </data>
+  <data name="CriticalLimitsHeader" xml:space="preserve">
+    <value>Лимиты требующие внимания:</value>
+  </data>
+  <data name="DayLable" xml:space="preserve">
+    <value>День</value>
+  </data>
+  <data name="LimitAccountHeader" xml:space="preserve">
+    <value>Установить лимит</value>
+  </data>
+  <data name="LimitCategoryHeader" xml:space="preserve">
+    <value>Установить лимит</value>
+  </data>
+  <data name="LimitHeader" xml:space="preserve">
+    <value>Лимит:</value>
+  </data>
+  <data name="LimitInformationHeader" xml:space="preserve">
+    <value>Информация о лемите:</value>
+  </data>
+  <data name="ReachLimitText" xml:space="preserve">
+    <value>Достигнет лимита в течение</value>
+  </data>
+  <data name="ReachLimitTextDaysPart" xml:space="preserve">
+    <value>дней</value>
+  </data>
+  <data name="BudgetCategoryHeader" xml:space="preserve">
+    <value>Включить в месячный бюджет</value>
+  </data>
+  <data name="BudgetButtonText" xml:space="preserve">
+    <value>Бюджет</value>
+  </data>
+  <data name="BudgetHeader" xml:space="preserve">
+    <value>Бюджет:</value>
+  </data>
+  <data name="BudgetPageHeader" xml:space="preserve">
+    <value>Бюджет</value>
+  </data>
+</root>

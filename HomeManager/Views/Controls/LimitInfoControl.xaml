@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="HomeManager.Views.Controls.LimitInfoControl"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:conv="clr-namespace:HomeManager.Views.Converters"
+			 mc:Ignorable="d"
+			 FontFamily="{StaticResource PhoneFontFamilyNormal}"
+			 FontSize="{StaticResource PhoneFontSizeNormal}"
+			 Foreground="{StaticResource PhoneForegroundBrush}"
+			 d:DesignHeight="480"
+			 d:DesignWidth="480"
+			 x:Name="Control"
+			 Margin="0 5 0 0">
+
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<conv:LimitSpeedColorConverter x:Key="LimitSpeedColorConverter" />
+			<conv:LimitValueColorConverter x:Key="LimitValueColorConverter" />
+		</ResourceDictionary>
+	</UserControl.Resources>
+
+	<Grid x:Name="LayoutRoot"
+		  Background="{StaticResource TransparentBrush}"
+		  VerticalAlignment="Top">
+		<StackPanel>
+			<TextBlock Style="{StaticResource TextBlockHeaderStyle}"
+					   Text="{Binding ElementName=Control, Path=Limit.Name}"
+					   Visibility="{Binding ElementName=Control, Path=DisplayLimitName, Converter={StaticResource BoolToVisibilityConverter}}"
+					   TextTrimming="WordEllipsis"
+					   HorizontalAlignment="Center" />
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<TextBlock>
+					<Run Text="{Binding ElementName=Control, Path=Limit.AmountSpent}" />
+					<Run Text="/" />
+					<Run Text="{Binding ElementName=Control, Path=Limit.Limit}" />
+					<Run Text="{Binding ElementName=Control, Path=Limit.Currency}" />
+					<Run Text="(" />
+					<Run Text="{Binding ElementName=Control, Path=Limit.Percentage}" />
+					<Run Text="% )" />
+				</TextBlock>
+				<TextBlock Grid.Column="2"
+						   Foreground="{Binding ElementName=Control, Path=Limit.SpeedDanger, Converter={StaticResource LimitSpeedColorConverter}}">
+					<Run Text="{Binding ElementName=Control, Path=Limit.Speed}" />
+					<Run Text="{Binding ElementName=Control, Path=Limit.Currency}" />
+					<Run Text="/" />
+					<Run Text="{Binding Path=LocalizedResources.DayLable, Source={StaticResource LocalizedStrings}}" />
+				</TextBlock>
+			</Grid>
+			<ProgressBar Margin="0 5 0 0"
+						 Value="{Binding ElementName=Control, Path=Limit.Percentage}"
+						 Foreground="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Value, Converter={StaticResource LimitValueColorConverter}}" />
+			<TextBlock Style="{StaticResource TextBlockHeaderStyle}"
+					   FontSize="16"
+					   HorizontalAlignment="Center">
+				<Run Text="{Binding Path=LocalizedResources.ReachLimitText, Source={StaticResource LocalizedStrings}}" />
+				<Run Text="{Binding ElementName=Control, Path=Limit.RunOutDays}" />
+				<Run Text="{Binding Path=LocalizedResources.ReachLimitTextDaysPart, Source={StaticResource LocalizedStrings}}" />
+			</TextBlock>
+		</StackPanel>
+	</Grid>
+</UserControl>

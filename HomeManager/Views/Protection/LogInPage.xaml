@@ -1,0 +1,76 @@
+﻿<phone:PhoneApplicationPage x:Class="HomeManager.Views.Protection.LogInPage"
+							xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+							xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+							xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+							xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+							xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+							xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+							FontFamily="{StaticResource PhoneFontFamilyNormal}"
+							FontSize="{StaticResource PhoneFontSizeNormal}"
+							Foreground="{StaticResource PhoneForegroundBrush}"
+							SupportedOrientations="Portrait"
+							Orientation="Portrait"
+							mc:Ignorable="d"
+							shell:SystemTray.IsVisible="True">
+
+	<Grid x:Name="LayoutRoot"
+		  Background="Transparent">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<StackPanel>
+			<TextBlock Text="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.ApplicationTitle}"
+					   Style="{StaticResource PhoneTextNormalStyle}" />
+			<TextBlock Text="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.LogInPageHeader}"
+					   Style="{StaticResource TextBlockPageHeaderStyle}" />
+		</StackPanel>
+
+		<Grid x:Name="ContentPanel"
+			  Grid.Row="1">
+			<StackPanel>
+				<ContentControl Visibility="{Binding ElementName=RestoreToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=True}"
+								HorizontalContentAlignment="Stretch">
+					<StackPanel>
+						<TextBlock Text="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.PasswordHeader}"
+								   Style="{StaticResource TextBlockHeaderVerticalStyle}" />
+						<PasswordBox Password="{Binding Password, Mode=TwoWay}" />
+						<Button Content="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.EnterButtonText}"
+								Click="OnEnterClick" />
+					</StackPanel>
+				</ContentControl>
+				
+				<StackPanel Orientation="Horizontal">
+					<TextBlock Text="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.ForgotPasswordHeader}"
+							   Style="{StaticResource TextBlockHeaderVerticalStyle}"
+							   VerticalAlignment="Center" />
+					<ToggleButton Name="RestoreToggleButton"
+								  Content="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.RestoreButtonText}"
+								  Background="Transparent"
+								  BorderBrush="Transparent"
+								  BorderThickness="0" 
+								  Margin="0" 
+								  Padding="5 0" />
+				</StackPanel>
+
+				<ContentControl Visibility="{Binding ElementName=RestoreToggleButton, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}"
+								HorizontalContentAlignment="Stretch">
+					<StackPanel>
+						<TextBlock TextWrapping="Wrap"
+								   Margin="10 0">
+							<Run Text="{Binding Question}" />
+							<Run Text="?" />
+						</TextBlock>
+						<TextBlock Text="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.AnswerHeader}"
+								   Style="{StaticResource TextBlockHeaderVerticalStyle}" />
+						<TextBox Text="{Binding Answer, Mode=TwoWay}" />
+						<Button Content="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.RestoreButtonText}"
+								Click="OnRestoreClick" />
+					</StackPanel>
+				</ContentControl>
+			</StackPanel>
+		</Grid>
+	</Grid>
+
+</phone:PhoneApplicationPage>

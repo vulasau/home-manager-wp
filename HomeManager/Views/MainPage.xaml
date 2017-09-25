@@ -1,0 +1,476 @@
+﻿<phone:PhoneApplicationPage x:Class="HomeManager.Views.MainPage"
+							xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+							xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+							xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+							xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+							xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+							xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+							xmlns:scm="clr-namespace:System.ComponentModel;assembly=System.Windows"
+							xmlns:wpt="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+							xmlns:conv="clr-namespace:HomeManager.Views.Converters"
+							xmlns:res="clr-namespace:HomeManager.Resources"
+							xmlns:sys="clr-namespace:System;assembly=mscorlib"
+							xmlns:uc="clr-namespace:HomeManager.Views.Controls"
+							xmlns:cmshell="clr-namespace:Caliburn.Micro.BindableAppBar;assembly=Caliburn.Micro.BindableAppBar"
+							mc:Ignorable="d"
+							FontFamily="{StaticResource PhoneFontFamilyNormal}"
+							FontSize="{StaticResource PhoneFontSizeNormal}"
+							Foreground="{StaticResource PhoneForegroundBrush}"
+							Loaded="PageLoaded"
+							SupportedOrientations="Portrait"
+							Orientation="Portrait"
+							shell:SystemTray.IsVisible="True">
+	<Grid x:Name="LayoutRoot"
+		  Background="Transparent">
+		<Grid.Resources>
+			<ResourceDictionary>
+				<!--Collections-->
+				<CollectionViewSource x:Key="ConversionsSrc"
+									  Source="{Binding Conversions}">
+					<CollectionViewSource.SortDescriptions>
+						<scm:SortDescription PropertyName="Date"
+											 Direction="Descending" />
+					</CollectionViewSource.SortDescriptions>
+				</CollectionViewSource>
+				<!--/-->
+
+				<!--DataTemplates-->
+				<DataTemplate x:Key="OperationTemplate">
+					<StackPanel Orientation="Horizontal"
+								Margin="0 2">
+						<Rectangle Style="{StaticResource RectangleImageContainerBigStyle}">
+						<Rectangle.OpacityMask>
+								<ImageBrush ImageSource="{Binding Category.IconSource.Source}" />
+							</Rectangle.OpacityMask></Rectangle>
+						<StackPanel>
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Text="{Binding Path=Amount, StringFormat='##,#.##'}"
+										   FontSize="30"
+										   Margin="10 0 0 0"
+										   VerticalAlignment="Bottom" />
+								<TextBlock Text="{Binding Path=Currency}"
+										   FontSize="30"
+										   Margin="10 0 0 0"
+										   VerticalAlignment="Bottom" />
+							</StackPanel>
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Text="{Binding Path=Date, Converter={StaticResource DateTimeToStringConverter}}"
+										   FontSize="18"
+										   Margin="15 0 0 0"
+										   VerticalAlignment="Top" />
+								<TextBlock Text="{Binding Path=Description}"
+										   TextTrimming="WordEllipsis"
+										   FontSize="18"
+										   Margin="15 0 0 0"
+										   MaxWidth="250"
+										   VerticalAlignment="Top" />
+							</StackPanel>
+						</StackPanel>
+					</StackPanel>
+				</DataTemplate>
+
+				<DataTemplate x:Key="ConversionTemplate">
+					<TextBlock Text="{Binding }"
+							   Margin="0 2"
+							   FontSize="24"
+							   VerticalAlignment="Center" />
+				</DataTemplate>
+
+				<DataTemplate x:Key="BalanceTemplate">
+					<StackPanel Orientation="Horizontal"
+								Visibility="{Binding Balance, Converter={StaticResource NullToVisibilityConverter}}">
+						<StackPanel.Resources>
+							<Style TargetType="TextBlock">
+								<Setter Property="FontSize"
+										Value="30" />
+								<Setter Property="VerticalAlignment"
+										Value="Center" />
+							</Style>
+						</StackPanel.Resources>
+
+						<TextBlock Text="{Binding Name}" />
+						<TextBlock Text=":" />
+						<TextBlock Text="{Binding Balance}"
+								   Margin="10 0 0 0" />
+					</StackPanel>
+				</DataTemplate>
+
+				<DataTemplate x:Key="CategoryItemTemplate">
+					<Rectangle Style="{StaticResource RectangleImageContainerStyle}">
+						<Rectangle.OpacityMask>
+							<ImageBrush ImageSource="{Binding IconSource.Source}" />
+						</Rectangle.OpacityMask>
+					</Rectangle>
+				</DataTemplate>
+
+				<DataTemplate x:Key="CategoryFullModeItemTemplate">
+					<StackPanel Orientation="Horizontal"
+								Margin="0 2">
+						<Rectangle Style="{StaticResource RectangleImageContainerBigStyle}">
+							<Rectangle.OpacityMask>
+								<ImageBrush ImageSource="{Binding IconSource.Source}" />
+							</Rectangle.OpacityMask>
+						</Rectangle>
+						<TextBlock Text="{Binding Name}"
+								   Style="{StaticResource TextBlockListItemStyle}" />
+					</StackPanel>
+				</DataTemplate>
+
+				<DataTemplate x:Key="InfoTemplate">
+					<TextBlock>
+							<Run Text="{Binding Amount}" />
+							<Run Text="{Binding Currency}" />
+					</TextBlock>
+				</DataTemplate>
+
+				<DataTemplate x:Key="CriticalLimitTemplate">
+					<uc:LimitInfoControl Limit="{Binding}"
+										 DisplayLimitName="True" />
+				</DataTemplate>
+
+				<DataTemplate x:Key="BudgetInfoTemplate">
+					<TextBlock>
+							<Run Text="{Binding Value}" />
+							<Run Text="{Binding Key}" />
+					</TextBlock>
+				</DataTemplate>
+				<!--/-->
+			</ResourceDictionary>
+		</Grid.Resources>
+
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<StackPanel x:Name="TitlePanel">
+			<TextBlock Text="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}"
+					   Style="{StaticResource PhoneTextNormalStyle}" />
+		</StackPanel>
+
+		<Grid Grid.Row="1"
+			  x:Name="ContentPanel">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="*" />
+				</Grid.RowDefinitions>
+
+				<ContentControl HorizontalContentAlignment="Stretch"
+								Visibility="{Binding Accounts, Converter={StaticResource AccountVisibilityConverter}}">
+					<Grid VerticalAlignment="Top">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="*" />
+						</Grid.ColumnDefinitions>
+						<TextBlock Text="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.AccountHeader}"
+								   Margin="10 15 10 0"
+								   Style="{StaticResource TextBlockHeaderHorizontalStyle}" />
+						<wpt:ListPicker Grid.Column="1"
+										ItemsSource="{Binding Accounts}"
+										SelectedItem="{Binding SelectedAccount, Mode=TwoWay}"
+										Style="{StaticResource ListPickerAccountStyle}"
+										FullModeHeader="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.AccountHeader}"
+										DisplayMemberPath="Name">
+							<wpt:ListPicker.FullModeItemTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding Name}"
+											   Style="{StaticResource TextBlockListItemStyle}" />
+								</DataTemplate>
+							</wpt:ListPicker.FullModeItemTemplate>
+						</wpt:ListPicker>
+					</Grid>
+				</ContentControl>
+
+				<phone:Pivot Name="Navigation"
+							 Grid.Row="1"
+							 SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}">
+					<phone:PivotItem>
+						<phone:PivotItem.Header>
+							<StackPanel Orientation="Horizontal">
+								<Rectangle Margin="-10 0 0 0"
+										   Style="{StaticResource RectangleImageContainerBigStyle}">
+									<Rectangle.OpacityMask>
+										<ImageBrush ImageSource="/Icons/Application/Expense.png" />
+									</Rectangle.OpacityMask>
+								</Rectangle>
+								<TextBlock Text="{Binding Path=LocalizedResources.ExpenseTabHeader, Source={StaticResource LocalizedStrings}}"
+										   Style="{StaticResource TextBlockTabHeaderStyle}" />
+							</StackPanel>
+						</phone:PivotItem.Header>
+						<Grid Margin="10 0">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="*" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+
+							<uc:QuickAccessControl DataContext="{Binding QuickExpense}"
+												   InputType="Number"
+												   ItemTemplate="{StaticResource CategoryItemTemplate}"
+												   FullModeItemTemplate="{StaticResource CategoryFullModeItemTemplate}"
+												   ItemsHeader="{Binding Path=LocalizedResources.CategoryHeader, Source={StaticResource LocalizedStrings}}"
+												   ValueHeader="{Binding Path=LocalizedResources.AmountHeader, Source={StaticResource LocalizedStrings}}"
+												   AddClick="OnQuickAddExpenseClick" />
+
+							<ListBox Grid.Row="1"
+									 Name="ExpensesList"
+									 ItemsSource="{Binding Expenses}"
+									 SelectedItem="{Binding SelectedExpense, Mode=TwoWay}"
+									 ItemTemplate="{StaticResource OperationTemplate}">
+							</ListBox>
+
+							<Grid Grid.Row="2"
+								  Margin="-10 0">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="Auto" />
+								</Grid.ColumnDefinitions>
+
+								<TextBox Text="{Binding ExpenseSearch, Mode=TwoWay}"
+										 Style="{StaticResource TextBoxSearchStyle}" />
+								<Rectangle Grid.Column="1"
+										   Style="{StaticResource RectangleImageContainerBigStyle}">
+									<Rectangle.OpacityMask>
+										<ImageBrush ImageSource="/Icons/Application/Search.png" />
+									</Rectangle.OpacityMask>
+								</Rectangle>
+							</Grid>
+
+							<cmshell:BindableAppBar Grid.Row="3"
+													IsVisible="{Binding SelectedTabIndex, Converter={StaticResource NavigationConverter}, ConverterParameter=0}">
+								<cmshell:BindableAppBarButton Text="{Binding Path=LocalizedResources.AddButtonText, Source={StaticResource LocalizedStrings}}"
+															  IconUri="/Icons/Application/Add.png"
+															  Click="OnAddExpenseClick" />
+								<cmshell:BindableAppBarButton Text="{Binding Path=LocalizedResources.EditButtonText, Source={StaticResource LocalizedStrings}}"
+															  IconUri="/Icons/Application/Edit.png"
+															  Click="OnEditExpenseClick"
+															  Visibility="{Binding ElementName=ExpensesList, Path=SelectedItem, Converter={StaticResource NullToVisibilityConverter}}" />
+								<cmshell:BindableAppBarButton Text="{Binding Path=LocalizedResources.DeleteButtonText, Source={StaticResource LocalizedStrings}}"
+															  IconUri="/Icons/Application/Delete.png"
+															  Click="OnRemoveExpenseClick"
+															  Visibility="{Binding ElementName=ExpensesList, Path=SelectedItem, Converter={StaticResource NullToVisibilityConverter}}" />
+								<cmshell:BindableAppBarMenuItem Text="{Binding Path=LocalizedResources.AccountsButtonText, Source={StaticResource LocalizedStrings}}"
+																Click="OnAccountsClick" />
+								<cmshell:BindableAppBarMenuItem Text="{Binding Path=LocalizedResources.ToolsButtonText, Source={StaticResource LocalizedStrings}}"
+																Click="OnToolsClick" />
+								<cmshell:BindableAppBarMenuItem Text="{Binding Path=LocalizedResources.OptionsButtonText, Source={StaticResource LocalizedStrings}}"
+																Click="OnOptionsClick" />
+								<cmshell:BindableAppBarMenuItem Text="{Binding Path=LocalizedResources.AboutButtonText, Source={StaticResource LocalizedStrings}}"
+																Click="OnAboutClick" />
+							</cmshell:BindableAppBar>
+						</Grid>
+					</phone:PivotItem>
+
+					<phone:PivotItem>
+						<phone:PivotItem.Header>
+							<StackPanel Orientation="Horizontal">
+								<Rectangle Margin="-10 0 0 0"
+										   Style="{StaticResource RectangleImageContainerBigStyle}">
+									<Rectangle.OpacityMask>
+										<ImageBrush ImageSource="/Icons/Application/Income.png" />
+									</Rectangle.OpacityMask>
+								</Rectangle>
+								<TextBlock Text="{Binding Path=LocalizedResources.IncomeTabHeader, Source={StaticResource LocalizedStrings}}"
+										   Style="{StaticResource TextBlockTabHeaderStyle}" />
+							</StackPanel>
+						</phone:PivotItem.Header>
+						<Grid Margin="10 0">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="*" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+
+							<uc:QuickAccessControl DataContext="{Binding QuickIncome}"
+												   InputType="Number"
+												   ItemTemplate="{StaticResource CategoryItemTemplate}"
+												   FullModeItemTemplate="{StaticResource CategoryFullModeItemTemplate}"
+												   ItemsHeader="{Binding Path=LocalizedResources.CategoryHeader, Source={StaticResource LocalizedStrings}}"
+												   ValueHeader="{Binding Path=LocalizedResources.AmountHeader, Source={StaticResource LocalizedStrings}}"
+												   AddClick="OnQuickAddIncomeClick" />
+
+							<ListBox Grid.Row="1"
+									 Name="IncomesList"
+									 ItemsSource="{Binding Incomes}"
+									 SelectedItem="{Binding SelectedIncome, Mode=TwoWay}"
+									 ItemTemplate="{StaticResource OperationTemplate}">
+							</ListBox>
+
+							<Grid Grid.Row="2"
+								  Margin="-10 0">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="Auto" />
+								</Grid.ColumnDefinitions>
+
+								<TextBox Text="{Binding IncomeSearch, Mode=TwoWay}"
+										 Style="{StaticResource TextBoxSearchStyle}" />
+								<Rectangle Grid.Column="1"
+										   Style="{StaticResource RectangleImageContainerBigStyle}">
+									<Rectangle.OpacityMask>
+										<ImageBrush ImageSource="/Icons/Application/Search.png" />
+									</Rectangle.OpacityMask>
+								</Rectangle>
+							</Grid>
+
+							<cmshell:BindableAppBar IsVisible="{Binding SelectedTabIndex, Converter={StaticResource NavigationConverter}, ConverterParameter=1}">
+								<cmshell:BindableAppBarButton Text="{Binding Path=LocalizedResources.AddButtonText, Source={StaticResource LocalizedStrings}}"
+															  IconUri="/Icons/Application/Add.png"
+															  Click="OnAddIncomeClick" />
+								<cmshell:BindableAppBarButton Text="{Binding Path=LocalizedResources.EditButtonText, Source={StaticResource LocalizedStrings}}"
+															  IconUri="/Icons/Application/Edit.png"
+															  Click="OnEditIncomeClick"
+															  Visibility="{Binding ElementName=IncomesList, Path=SelectedItem, Converter={StaticResource NullToVisibilityConverter}}" />
+								<cmshell:BindableAppBarButton Text="{Binding Path=LocalizedResources.DeleteButtonText, Source={StaticResource LocalizedStrings}}"
+															  IconUri="/Icons/Application/Delete.png"
+															  Click="OnRemoveIncomeClick"
+															  Visibility="{Binding ElementName=IncomesList, Path=SelectedItem, Converter={StaticResource NullToVisibilityConverter}}" />
+								<cmshell:BindableAppBarMenuItem Text="{Binding Path=LocalizedResources.AccountsButtonText, Source={StaticResource LocalizedStrings}}"
+																Click="OnAccountsClick" />
+								<cmshell:BindableAppBarMenuItem Text="{Binding Path=LocalizedResources.ToolsButtonText, Source={StaticResource LocalizedStrings}}"
+																Click="OnToolsClick" />
+								<cmshell:BindableAppBarMenuItem Text="{Binding Path=LocalizedResources.OptionsButtonText, Source={StaticResource LocalizedStrings}}"
+																Click="OnOptionsClick" />
+								<cmshell:BindableAppBarMenuItem Text="{Binding Path=LocalizedResources.AboutButtonText, Source={StaticResource LocalizedStrings}}"
+																Click="OnAboutClick" />
+							</cmshell:BindableAppBar>
+						</Grid>
+					</phone:PivotItem>
+
+					<phone:PivotItem>
+						<phone:PivotItem.Header>
+							<StackPanel Orientation="Horizontal">
+								<Rectangle Margin="-10 0 0 0"
+										   Style="{StaticResource RectangleImageContainerBigStyle}">
+									<Rectangle.OpacityMask>
+										<ImageBrush ImageSource="/Icons/Application/Conversion.png" />
+									</Rectangle.OpacityMask>
+								</Rectangle>
+								<TextBlock Text="{Binding Path=LocalizedResources.ConversionTabHeader, Source={StaticResource LocalizedStrings}}"
+										   Style="{StaticResource TextBlockTabHeaderStyle}" />
+							</StackPanel>
+						</phone:PivotItem.Header>
+						<Grid Margin="10 0">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="*" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+
+							<ListBox Name="ConversionsList"
+									 ItemsSource="{Binding Source={StaticResource ConversionsSrc}}"
+									 SelectedItem="{Binding SelectedConversion, Mode=TwoWay}"
+									 ItemTemplate="{StaticResource ConversionTemplate}">
+							</ListBox>
+
+							<cmshell:BindableAppBar IsVisible="{Binding SelectedTabIndex, Converter={StaticResource NavigationConverter}, ConverterParameter=2}">
+								<cmshell:BindableAppBarButton Text="{Binding Path=LocalizedResources.AddButtonText, Source={StaticResource LocalizedStrings}}"
+															  IconUri="/Icons/Application/Add.png"
+															  Click="OnAddConversionClick" />
+								<cmshell:BindableAppBarButton Text="{Binding Path=LocalizedResources.EditButtonText, Source={StaticResource LocalizedStrings}}"
+															  IconUri="/Icons/Application/Edit.png"
+															  Click="OnEditConversionClick"
+															  Visibility="{Binding ElementName=ConversionsList, Path=SelectedItem, Converter={StaticResource NullToVisibilityConverter}}" />
+								<cmshell:BindableAppBarButton Text="{Binding Path=LocalizedResources.DeleteButtonText, Source={StaticResource LocalizedStrings}}"
+															  IconUri="/Icons/Application/Delete.png"
+															  Click="OnRemoveConversionClick"
+															  Visibility="{Binding ElementName=ConversionsList, Path=SelectedItem, Converter={StaticResource NullToVisibilityConverter}}" />
+								<cmshell:BindableAppBarButton Text="{Binding Path=LocalizedResources.RatesButtonText, Source={StaticResource LocalizedStrings}}"
+															  IconUri="/Icons/Application/Rates.png"
+															  Click="OnRatesClick" />
+								<cmshell:BindableAppBarMenuItem Text="{Binding Path=LocalizedResources.AccountsButtonText, Source={StaticResource LocalizedStrings}}"
+																Click="OnAccountsClick" />
+								<cmshell:BindableAppBarMenuItem Text="{Binding Path=LocalizedResources.ToolsButtonText, Source={StaticResource LocalizedStrings}}"
+																Click="OnToolsClick" />
+								<cmshell:BindableAppBarMenuItem Text="{Binding Path=LocalizedResources.OptionsButtonText, Source={StaticResource LocalizedStrings}}"
+																Click="OnOptionsClick" />
+								<cmshell:BindableAppBarMenuItem Text="{Binding Path=LocalizedResources.AboutButtonText, Source={StaticResource LocalizedStrings}}"
+																Click="OnAboutClick" />
+							</cmshell:BindableAppBar>
+						</Grid>
+					</phone:PivotItem>
+
+					<phone:PivotItem>
+						<phone:PivotItem.Header>
+							<StackPanel Orientation="Horizontal">
+								<Rectangle Margin="-10 0 0 0"
+										   Style="{StaticResource RectangleImageContainerBigStyle}">
+									<Rectangle.OpacityMask>
+										<ImageBrush ImageSource="/Icons/Application/Balance.png" />
+									</Rectangle.OpacityMask>
+								</Rectangle>
+								<TextBlock Text="{Binding Path=LocalizedResources.BalanceTabHeader, Source={StaticResource LocalizedStrings}}"
+										   Style="{StaticResource TextBlockTabHeaderStyle}" />
+							</StackPanel>
+						</phone:PivotItem.Header>
+						<Grid Margin="10 0">
+							<ScrollViewer>
+								<StackPanel>
+									<TextBlock Text="{Binding Date}" Margin="0 0 0 20"/>
+
+									<ItemsControl ItemsSource="{Binding Cash}"
+												  ItemTemplate="{StaticResource BalanceTemplate}" />
+
+									<StackPanel Visibility="{Binding MonthIncome.Count, Converter={StaticResource NullToVisibilityConverter}}"
+												Margin="0 20 0 0">
+										<TextBlock Text="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.MonthIncomeHeader}"
+												   Style="{StaticResource TextBlockHeaderStyle}"
+												   TextDecorations="Underline" />
+										<ItemsControl ItemsSource="{Binding MonthIncome}"
+													  ItemTemplate="{StaticResource InfoTemplate}" />
+									</StackPanel>
+
+									<StackPanel Visibility="{Binding MonthExpense.Count, Converter={StaticResource NullToVisibilityConverter}}"
+												Margin="0 20 0 0">
+										<TextBlock Text="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.MonthExpenseHeader}"
+												   Style="{StaticResource TextBlockHeaderStyle}"
+												   TextDecorations="Underline" />
+										<ItemsControl ItemsSource="{Binding MonthExpense}"
+													  ItemTemplate="{StaticResource InfoTemplate}" />
+									</StackPanel>
+
+									<StackPanel Margin="0 20 0 0"
+												Visibility="{Binding Budget, Converter={StaticResource NullToVisibilityConverter}}">
+										<TextBlock Text="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.BudgetHeader}"
+												   Style="{StaticResource TextBlockHeaderStyle}"
+												   TextDecorations="Underline" />
+										<ItemsControl ItemsSource="{Binding Budget}"
+													  ItemTemplate="{StaticResource BudgetInfoTemplate}" />
+									</StackPanel>
+
+									<StackPanel Visibility="{Binding Limits.Count, Converter={StaticResource NullToVisibilityConverter}}"
+												Margin="0 20 0 0">
+										<TextBlock Text="{Binding Path=LocalizedResources.CriticalLimitsHeader, Source={StaticResource LocalizedStrings}}"
+												   Style="{StaticResource TextBlockHeaderStyle}"
+												   TextDecorations="Underline" />
+										<ItemsControl ItemsSource="{Binding Limits}"
+													  ItemTemplate="{StaticResource CriticalLimitTemplate}" />
+									</StackPanel>
+								</StackPanel>
+							</ScrollViewer>
+
+							<cmshell:BindableAppBar IsVisible="{Binding SelectedTabIndex, Converter={StaticResource NavigationConverter}, ConverterParameter=3}">
+								<cmshell:BindableAppBarButton Text="{Binding Path=LocalizedResources.StatisticsButtonText, Source={StaticResource LocalizedStrings}}"
+															  IconUri="/Icons/Application/Chart.png"
+															  Click="OnStatisticsClick" />
+								<cmshell:BindableAppBarButton Text="{Binding Path=LocalizedResources.BudgetButtonText, Source={StaticResource LocalizedStrings}}"
+															  IconUri="/Icons/Application/Rates.png"
+															  Click="OnBudgetClick" />
+								<cmshell:BindableAppBarMenuItem Text="{Binding Path=LocalizedResources.AccountsButtonText, Source={StaticResource LocalizedStrings}}"
+																Click="OnAccountsClick" />
+								<cmshell:BindableAppBarMenuItem Text="{Binding Path=LocalizedResources.ToolsButtonText, Source={StaticResource LocalizedStrings}}"
+																Click="OnToolsClick" />
+								<cmshell:BindableAppBarMenuItem Text="{Binding Path=LocalizedResources.OptionsButtonText, Source={StaticResource LocalizedStrings}}"
+																Click="OnOptionsClick" />
+								<cmshell:BindableAppBarMenuItem Text="{Binding Path=LocalizedResources.AboutButtonText, Source={StaticResource LocalizedStrings}}"
+																Click="OnAboutClick" />
+							</cmshell:BindableAppBar>
+						</Grid>
+					</phone:PivotItem>
+				</phone:Pivot>
+			</Grid>
+		</Grid>
+	</Grid>
+</phone:PhoneApplicationPage>

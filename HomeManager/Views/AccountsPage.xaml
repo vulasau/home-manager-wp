@@ -1,0 +1,102 @@
+﻿<phone:PhoneApplicationPage x:Class="HomeManager.Views.AccountsPage"
+							xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+							xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+							xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+							xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+							xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+							xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+							xmlns:scm="clr-namespace:System.ComponentModel;assembly=System.Windows"
+							xmlns:cmshell="clr-namespace:Caliburn.Micro.BindableAppBar;assembly=Caliburn.Micro.BindableAppBar"
+							FontFamily="{StaticResource PhoneFontFamilyNormal}"
+							FontSize="{StaticResource PhoneFontSizeNormal}"
+							Foreground="{StaticResource PhoneForegroundBrush}"
+							SupportedOrientations="Portrait"
+							Orientation="Portrait"
+							mc:Ignorable="d"
+							shell:SystemTray.IsVisible="True">
+
+	<Grid x:Name="LayoutRoot"
+		  Background="Transparent">
+
+		<Grid.Resources>
+			<ResourceDictionary>
+				<!--Collections-->
+				<CollectionViewSource x:Key="AccountsSrc"
+									  Source="{Binding Accounts}">
+					<CollectionViewSource.SortDescriptions>
+						<scm:SortDescription PropertyName="Id"
+											 Direction="Ascending" />
+					</CollectionViewSource.SortDescriptions>
+				</CollectionViewSource>
+				<!--/-->
+
+				<DataTemplate x:Key="AccountTemplate">
+					<TextBlock Text="{Binding Name}"
+							   Margin="2 0"
+							   Style="{StaticResource TextBlockListItemStyle}" />
+				</DataTemplate>
+			</ResourceDictionary>
+		</Grid.Resources>
+
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<StackPanel>
+			<TextBlock Text="MY APPLICATION"
+					   Style="{StaticResource PhoneTextNormalStyle}" />
+			<TextBlock Text="Accounts"
+					   Style="{StaticResource TextBlockPageHeaderStyle}" />
+		</StackPanel>
+
+		<Grid x:Name="ContentPanel"
+			  Grid.Row="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
+			
+			<Grid Margin="0 0 10 0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="100" />
+				</Grid.ColumnDefinitions>
+				<StackPanel Orientation="Vertical">
+					<TextBlock Text="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.NameHeader}"
+							   Style="{StaticResource TextBlockHeaderVerticalStyle}" />
+					<TextBox Name="NameTextBox"
+							 Text="{Binding NewAccountName, Mode=TwoWay}"
+							 Style="{StaticResource TextBoxInlineTopHeaderedStyle}"
+							 InputScope="Text" />
+				</StackPanel>
+
+				<Button Grid.Column="1"
+						IsEnabled="{Binding ElementName=NameTextBox, Path=Text, Converter={StaticResource NullToBooleanConverter}}"
+						Style="{StaticResource ButtonInlineStyle}"
+						ContentTemplate="{StaticResource ButtonIconAddTemplate}"
+						Click="OnAddAccountClick" />
+
+			</Grid>
+
+			<ListBox Name="AccountsListBox"
+					 Grid.Row="1"
+					 Margin="10 0"
+					 ItemsSource="{Binding Source={StaticResource AccountsSrc}}"
+					 SelectedItem="{Binding SelectedAccount, Mode=TwoWay}"
+					 ItemTemplate="{StaticResource AccountTemplate}" />
+		</Grid>
+		<cmshell:BindableAppBar Grid.Row="2"
+								IsVisible="{Binding ElementName=AccountsListBox, Path=SelectedItem, Converter={StaticResource NullToVisibilityConverter}}">
+			<cmshell:BindableAppBarButton Text="{Binding Path=LocalizedResources.EditButtonText, Source={StaticResource LocalizedStrings}}"
+										  Visibility="{Binding SelectedAccount, Converter={StaticResource NullToVisibilityConverter}}"
+										  IconUri="/Icons/Application/Edit.png"
+										  Click="OnEditClick" />
+			<cmshell:BindableAppBarButton Text="{Binding Path=LocalizedResources.DeleteButtonText, Source={StaticResource LocalizedStrings}}"
+										  IsEnabled="{Binding CanRemove}"
+										  IconUri="/Icons/Application/Delete.png"
+										  Click="OnRemoveClick" />
+		</cmshell:BindableAppBar>
+	</Grid>
+
+</phone:PhoneApplicationPage>

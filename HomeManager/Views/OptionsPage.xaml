@@ -1,0 +1,293 @@
+﻿<phone:PhoneApplicationPage x:Class="HomeManager.Views.OptionsPage"
+							xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+							xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+							xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+							xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+							xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+							xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+							xmlns:scm="clr-namespace:System.ComponentModel;assembly=System.Windows"
+							xmlns:wpt="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+							xmlns:uc="clr-namespace:HomeManager.Views.Controls"
+							xmlns:cmshell="clr-namespace:Caliburn.Micro.BindableAppBar;assembly=Caliburn.Micro.BindableAppBar"
+							FontFamily="{StaticResource PhoneFontFamilyNormal}"
+							FontSize="{StaticResource PhoneFontSizeNormal}"
+							Foreground="{StaticResource PhoneForegroundBrush}"
+							Loaded="OnLoaded"
+							SupportedOrientations="Portrait"
+							Orientation="Portrait"
+							mc:Ignorable="d"
+							shell:SystemTray.IsVisible="True">
+	<Grid x:Name="LayoutRoot"
+		  Background="Transparent">
+
+		<Grid.Resources>
+			<ResourceDictionary>
+				<CollectionViewSource x:Key="ExpenseCategoriesSrc"
+									  Source="{Binding Categories}"
+									  Filter="ExpenseCategoriesFilter">
+				</CollectionViewSource>
+				<CollectionViewSource x:Key="IncomeCategoriesSrc"
+									  Source="{Binding Categories}"
+									  Filter="IncomeCategoriesFilter">
+				</CollectionViewSource>
+
+				<DataTemplate x:Key="CurrencyItemTemplate">
+					<TextBlock Margin="0"
+							   Text="{Binding}"
+							   Style="{StaticResource TextBlockListItemStyle}" />
+				</DataTemplate>
+
+				<DataTemplate x:Key="CategoryItemTemplate">
+					<StackPanel Orientation="Horizontal"
+								Margin="0 2">
+						<Rectangle Style="{StaticResource RectangleImageContainerBigStyle}">
+							<Rectangle.OpacityMask>
+								<ImageBrush ImageSource="{Binding IconSource.Source}" />
+							</Rectangle.OpacityMask>
+						</Rectangle>
+						<TextBlock Text="{Binding Name}"
+								   Style="{StaticResource TextBlockListItemStyle}" />
+					</StackPanel>
+				</DataTemplate>
+
+				<DataTemplate x:Key="IconItemTemplate">
+					<Rectangle Style="{StaticResource RectangleImageContainerStyle}">
+						<Rectangle.OpacityMask>
+							<ImageBrush ImageSource="{Binding Source}" />
+						</Rectangle.OpacityMask>
+					</Rectangle>
+				</DataTemplate>
+
+				<DataTemplate x:Key="IconFullModeItemTemplate">
+					<StackPanel Orientation="Horizontal"
+								Margin="0 2">
+						<Rectangle Style="{StaticResource RectangleImageContainerBigStyle}">
+							<Rectangle.OpacityMask>
+								<ImageBrush ImageSource="{Binding Source}" />
+							</Rectangle.OpacityMask>
+						</Rectangle>
+						<TextBlock Text="{Binding Name}"
+								   Style="{StaticResource TextBlockListItemStyle}" />
+					</StackPanel>
+				</DataTemplate>
+
+				<DataTemplate x:Key="EnumTemplate">
+					<TextBlock Tag="{Binding }"
+							   Text="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Tag, Converter={StaticResource LocalizedEnumConverter}}" />
+				</DataTemplate>
+			</ResourceDictionary>
+		</Grid.Resources>
+
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<StackPanel Grid.Row="0">
+			<TextBlock Text="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}"
+					   Style="{StaticResource PhoneTextNormalStyle}" />
+			<StackPanel Orientation="Horizontal"
+						Margin="10 0">
+				<Rectangle Style="{StaticResource RectangleImageContainerBigStyle}">
+					<Rectangle.OpacityMask>
+						<ImageBrush ImageSource="/Icons/Application/Settings.png" />
+					</Rectangle.OpacityMask>
+				</Rectangle>
+				<TextBlock Margin="0"
+						   Text="{Binding Path=LocalizedResources.OptionsPageTitle, Source={StaticResource LocalizedStrings}}"
+						   Style="{StaticResource TextBlockPageHeaderStyle}" />
+			</StackPanel>
+		</StackPanel>
+
+		<Grid x:Name="ContentPanel"
+			  Grid.Row="1">
+			<phone:Pivot SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}">
+				<phone:PivotItem>
+					<phone:PivotItem.Header>
+						<StackPanel Orientation="Horizontal">
+							<Rectangle Margin="-10 0 0 0"
+									   Style="{StaticResource RectangleImageContainerBigStyle}">
+								<Rectangle.OpacityMask>
+									<ImageBrush ImageSource="/Icons/Application/Defaults.png" />
+								</Rectangle.OpacityMask>
+							</Rectangle>
+							<TextBlock Style="{StaticResource TextBlockTabHeaderStyle}"
+									   Text="{Binding Path=LocalizedResources.DefaultsTabHeader, Source={StaticResource LocalizedStrings}}" />
+						</StackPanel>
+					</phone:PivotItem.Header>
+					<Grid>
+						<ScrollViewer>
+							<StackPanel>
+								<CheckBox Content="{Binding Path=LocalizedResources.RatesAutoUpdate, Source={StaticResource LocalizedStrings}}"
+										  IsChecked="{Binding LoadRates, Mode=TwoWay}" />
+
+								<wpt:ListPicker Header="{Binding Path=LocalizedResources.DefaultCurrencyHeader, Source={StaticResource LocalizedStrings}}"
+												ItemsSource="{Binding Currencies}"
+												SelectedItem="{Binding DefaultCurrency, Mode=TwoWay}"
+												FullModeItemTemplate="{StaticResource CurrencyItemTemplate}"
+												Style="{StaticResource ListPickerBaseStyle}" />
+
+								<wpt:ListPicker Header="{Binding Path=LocalizedResources.DefaultOperationFilterHeader, Source={StaticResource LocalizedStrings}}"
+												ItemsSource="{Binding OperationFilters}"
+												SelectedItem="{Binding DefaultOperationFilter, Mode=TwoWay}"
+												ItemTemplate="{StaticResource EnumTemplate}"
+												Style="{StaticResource ListPickerBaseStyle}" />
+
+								<wpt:ListPicker Header="{Binding Path=LocalizedResources.CategoriesSortOrderHeader, Source={StaticResource LocalizedStrings}}"
+												ItemsSource="{Binding SortOrders}"
+												SelectedItem="{Binding DefaultSortOrder, Mode=TwoWay}"
+												ItemTemplate="{StaticResource EnumTemplate}"
+												Style="{StaticResource ListPickerBaseStyle}" />
+
+								<Button Click="OnProtectionClick">
+									<StackPanel Orientation="Horizontal">
+										<Rectangle Style="{StaticResource RectangleImageContainerStyle}">
+											<Rectangle.OpacityMask>
+												<ImageBrush ImageSource="/Icons/Application/Protection.png" />
+											</Rectangle.OpacityMask>
+										</Rectangle>
+										<TextBlock Text="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.ProtectionButtonText}"
+												   VerticalAlignment="Center" />
+									</StackPanel>
+								</Button>
+
+								<Button Click="OnDataExportClick">
+									<StackPanel Orientation="Horizontal">
+										<Rectangle Style="{StaticResource RectangleImageContainerStyle}">
+											<Rectangle.OpacityMask>
+												<ImageBrush ImageSource="/Icons/Application/DataExport.png" />
+											</Rectangle.OpacityMask>
+										</Rectangle>
+										<TextBlock Text="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.DataExportPageTitle}"
+												   VerticalAlignment="Center" />
+									</StackPanel>
+								</Button>
+
+								<Button	Click="OnSkyDriveClick">
+									<StackPanel Orientation="Horizontal">
+										<Rectangle Style="{StaticResource RectangleImageContainerStyle}">
+											<Rectangle.OpacityMask>
+												<ImageBrush ImageSource="/Icons/Application/SkyDrive.png" />
+											</Rectangle.OpacityMask>
+										</Rectangle>
+										<TextBlock Text="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.SkyDriveButtonText}"
+												   VerticalAlignment="Center"
+												   Margin="5 0" />
+									</StackPanel>
+								</Button>
+
+								<Button Click="OnClearDatabaseClick">
+									<StackPanel Orientation="Horizontal">
+										<Rectangle Style="{StaticResource RectangleImageContainerStyle}">
+											<Rectangle.OpacityMask>
+												<ImageBrush ImageSource="/Icons/Application/Delete.png" />
+											</Rectangle.OpacityMask>
+										</Rectangle>
+										<TextBlock Text="{Binding Path=LocalizedResources.ClearDatabaseButtonText, Source={StaticResource LocalizedStrings}}"
+												   VerticalAlignment="Center" />
+									</StackPanel>
+								</Button>
+							</StackPanel>
+						</ScrollViewer>
+					</Grid>
+				</phone:PivotItem>
+
+				<phone:PivotItem>
+					<phone:PivotItem.Header>
+						<StackPanel Orientation="Horizontal">
+							<Rectangle Margin="-10 0 0 0"
+									   Style="{StaticResource RectangleImageContainerBigStyle}">
+								<Rectangle.OpacityMask>
+									<ImageBrush ImageSource="/Icons/Application/Expense.png" />
+								</Rectangle.OpacityMask>
+							</Rectangle>
+							<TextBlock Style="{StaticResource TextBlockTabHeaderStyle}"
+									   Text="{Binding Path=LocalizedResources.ExpenseCategoriesTabHeader, Source={StaticResource LocalizedStrings}}" />
+						</StackPanel>
+					</phone:PivotItem.Header>
+					<Grid Margin="10 0">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="*" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+
+						<uc:QuickAccessControl DataContext="{Binding QuickExpense}"
+											   InputType="Text"
+											   ItemTemplate="{StaticResource IconItemTemplate}"
+											   FullModeItemTemplate="{StaticResource IconFullModeItemTemplate}"
+											   ItemsHeader="{Binding Path=LocalizedResources.IconHeader, Source={StaticResource LocalizedStrings}}"
+											   ValueHeader="{Binding Path=LocalizedResources.NameHeader, Source={StaticResource LocalizedStrings}}"
+											   AddClick="OnAddExpenseClick" />
+
+						<ListBox Grid.Row="1"
+								 Name="ExpenseCategoriesList"
+								 ItemsSource="{Binding Source={StaticResource ExpenseCategoriesSrc}}"
+								 SelectedItem="{Binding SelectedExpenseCategory, Mode=TwoWay}"
+								 ItemTemplate="{StaticResource CategoryItemTemplate}" />
+
+						<cmshell:BindableAppBar Grid.Row="2"
+												IsVisible="{Binding SelectedTabIndex, Converter={StaticResource NavigationConverter}, ConverterParameter=1}">
+							<cmshell:BindableAppBarButton Text="{Binding Path=LocalizedResources.EditButtonText, Source={StaticResource LocalizedStrings}}"
+														  Visibility="{Binding ElementName=ExpenseCategoriesList, Path=SelectedItem, Converter={StaticResource NullToVisibilityConverter}}"
+														  IconUri="/Icons/Application/Edit.png"
+														  Click="OnEditExpenseClick" />
+							<cmshell:BindableAppBarButton Text="{Binding Path=LocalizedResources.DeleteButtonText, Source={StaticResource LocalizedStrings}}"
+														  Visibility="{Binding ElementName=ExpenseCategoriesList, Path=SelectedItem, Converter={StaticResource NullToVisibilityConverter}}"
+														  IconUri="/Icons/Application/Delete.png"
+														  Click="OnRemoveExpenseClick" />
+						</cmshell:BindableAppBar>
+					</Grid>
+				</phone:PivotItem>
+
+				<phone:PivotItem>
+					<phone:PivotItem.Header>
+						<StackPanel Orientation="Horizontal">
+							<Rectangle Margin="-10 0 0 0"
+									   Style="{StaticResource RectangleImageContainerBigStyle}">
+								<Rectangle.OpacityMask>
+									<ImageBrush ImageSource="/Icons/Application/Income.png" />
+								</Rectangle.OpacityMask>
+							</Rectangle>
+							<TextBlock Style="{StaticResource TextBlockTabHeaderStyle}"
+									   Text="{Binding Path=LocalizedResources.IncomeCategoriesTabHeader, Source={StaticResource LocalizedStrings}}" />
+						</StackPanel>
+					</phone:PivotItem.Header>
+					<Grid Margin="10 0">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="*" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+
+						<uc:QuickAccessControl DataContext="{Binding QuickIncome}"
+											   InputType="Text"
+											   ItemTemplate="{StaticResource IconItemTemplate}"
+											   FullModeItemTemplate="{StaticResource IconFullModeItemTemplate}"
+											   ItemsHeader="{Binding Path=LocalizedResources.IconHeader, Source={StaticResource LocalizedStrings}}"
+											   ValueHeader="{Binding Path=LocalizedResources.NameHeader, Source={StaticResource LocalizedStrings}}"
+											   AddClick="OnAddIcomeClick" />
+
+						<ListBox Grid.Row="1"
+								 Name="IncomeCategoriesList"
+								 ItemsSource="{Binding Source={StaticResource IncomeCategoriesSrc}}"
+								 SelectedItem="{Binding SelectedIncomeCategory, Mode=TwoWay}"
+								 ItemTemplate="{StaticResource CategoryItemTemplate}" />
+
+						<cmshell:BindableAppBar Grid.Row="2"
+												IsVisible="{Binding SelectedTabIndex, Converter={StaticResource NavigationConverter}, ConverterParameter=2}">
+							<cmshell:BindableAppBarButton Text="{Binding Path=LocalizedResources.EditButtonText, Source={StaticResource LocalizedStrings}}"
+														  Visibility="{Binding ElementName=IncomeCategoriesList, Path=SelectedItem, Converter={StaticResource NullToVisibilityConverter}}"
+														  IconUri="/Icons/Application/Edit.png"
+														  Click="OnEditIncomeClick" />
+							<cmshell:BindableAppBarButton Text="{Binding Path=LocalizedResources.DeleteButtonText, Source={StaticResource LocalizedStrings}}"
+														  Visibility="{Binding ElementName=IncomeCategoriesList, Path=SelectedItem, Converter={StaticResource NullToVisibilityConverter}}"
+														  IconUri="/Icons/Application/Delete.png"
+														  Click="OnRemoveIncomeClick" />
+						</cmshell:BindableAppBar>
+					</Grid>
+				</phone:PivotItem>
+			</phone:Pivot>
+		</Grid>
+	</Grid>
+</phone:PhoneApplicationPage>

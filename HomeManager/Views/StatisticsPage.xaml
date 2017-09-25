@@ -1,0 +1,139 @@
+﻿<phone:PhoneApplicationPage x:Class="HomeManager.Views.StatisticsPage"
+							xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+							xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+							xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+							xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+							xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+							xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+							xmlns:cmshell="clr-namespace:Caliburn.Micro.BindableAppBar;assembly=Caliburn.Micro.BindableAppBar"
+							FontFamily="{StaticResource PhoneFontFamilyNormal}"
+							FontSize="{StaticResource PhoneFontSizeNormal}"
+							Foreground="{StaticResource PhoneForegroundBrush}"
+							SupportedOrientations="Portrait"
+							Orientation="Portrait"
+							mc:Ignorable="d"
+							shell:SystemTray.IsVisible="True">
+	<Grid x:Name="LayoutRoot"
+		  Background="Transparent">
+		<Grid.Resources>
+			<ResourceDictionary>
+				<DataTemplate x:Key="InfoTemplate">
+					<StackPanel Margin="0 10">
+						<Grid>
+							<Grid.Resources>
+								<Style TargetType="TextBlock">
+									<Setter Property="Foreground"
+											Value="Gray" />
+								</Style>
+							</Grid.Resources>
+
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="0.5*"/>
+								<ColumnDefinition Width="0.3*"/>
+								<ColumnDefinition Width="0.2*"/>
+							</Grid.ColumnDefinitions>
+
+							<TextBlock Text="{Binding Name}"
+									   TextTrimming="WordEllipsis" />
+
+							<TextBlock Grid.Column="1"
+									   HorizontalAlignment="Left"
+									   TextTrimming="WordEllipsis">
+								<Run Text="{Binding Amount}" />
+								<Run Text="{Binding BaseCurrency}" />
+							</TextBlock>
+
+							<TextBlock Grid.Column="2"
+									   HorizontalAlignment="Right">
+								<Run Text="{Binding Persentage}" />
+								<Run Text="%" />
+							</TextBlock>
+						</Grid>
+						<ProgressBar Value="{Binding Persentage}"
+									 Margin="0 5 0 0" />
+					</StackPanel>
+				</DataTemplate>
+
+				<DataTemplate x:Key="HeaderTemplate">
+					<TextBlock Text="{Binding Currency}"
+							   Style="{StaticResource TextBlockTabHeaderStyle}"
+							   Margin="-10 0 0 0" />
+				</DataTemplate>
+
+				<DataTemplate x:Key="ItemTemplate">
+					<ScrollViewer>
+						<StackPanel Margin="10 0 0 0">
+							<ItemsControl ItemsSource="{Binding Info}"
+										  ItemTemplate="{StaticResource InfoTemplate}" />
+						</StackPanel>
+					</ScrollViewer>
+				</DataTemplate>
+			</ResourceDictionary>
+		</Grid.Resources>
+
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<StackPanel>
+			<TextBlock Text="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}"
+					   Style="{StaticResource PhoneTextNormalStyle}" />
+			<StackPanel Margin="10 0"
+						Orientation="Horizontal">
+				<Rectangle Style="{StaticResource RectangleImageContainerBigStyle}">
+					<Rectangle.OpacityMask>
+						<ImageBrush ImageSource="/Icons/Application/Chart.png" />
+					</Rectangle.OpacityMask>
+				</Rectangle>
+				<TextBlock Margin="0"
+						   Text="{Binding Path=LocalizedResources.StatisticsPageTitle, Source={StaticResource LocalizedStrings}}"
+						   Style="{StaticResource TextBlockPageHeaderStyle}" />
+			</StackPanel>
+		</StackPanel>
+
+		<Grid Grid.Row="1"
+			  x:Name="ContentPanel">
+
+			<TextBlock Text="{Binding Path=LocalizedResources.NoDataAvailable, Source={StaticResource LocalizedStrings}}"
+					   VerticalAlignment="Center"
+					   HorizontalAlignment="Center"
+					   Visibility="{Binding NoData, Converter={StaticResource BoolToVisibilityConverter}}" />
+
+			<Grid Visibility="{Binding HasData, Converter={StaticResource BoolToVisibilityConverter}}">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="*" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+
+				<TextBlock Text="{Binding Period, Converter={StaticResource DateTimeToStringConverter}}"
+						   Style="{StaticResource TextBlockTabHeaderStyle}"
+						   Margin="10 0" />
+
+				<phone:Pivot Grid.Row="1"
+							 ItemsSource="{Binding Statistics}"
+							 HeaderTemplate="{StaticResource HeaderTemplate}"
+							 ItemTemplate="{StaticResource ItemTemplate}" />
+
+				<cmshell:BindableAppBar Grid.Row="2"
+										IsVisible="{Binding HasData}">
+					<cmshell:BindableAppBarButton Text="{Binding Path=LocalizedResources.AllTimeButtonText, Source={StaticResource LocalizedStrings}}"
+												  IconUri="/Icons/Application/Balance.png"
+												  Click="OnAllTimeClick" />
+					<cmshell:BindableAppBarButton Text="{Binding Path=LocalizedResources.BackButtonText, Source={StaticResource LocalizedStrings}}"
+												  IsEnabled="{Binding CanMoveBack}"
+												  IconUri="/Icons/Application/Back.png"
+												  Click="OnBackClick" />
+					<cmshell:BindableAppBarButton Text="{Binding Path=LocalizedResources.CurrentButtonText, Source={StaticResource LocalizedStrings}}"
+												  IconUri="/Icons/Application/Defaults.png"
+												  Click="OnCurrentClick" />
+					<cmshell:BindableAppBarButton Text="{Binding Path=LocalizedResources.NextButtonText, Source={StaticResource LocalizedStrings}}"
+												  IsEnabled="{Binding CanMoveNext}"
+												  IconUri="/Icons/Application/Next.png"
+												  Click="OnNextClick" />
+				</cmshell:BindableAppBar>
+			</Grid>
+		</Grid>
+	</Grid>
+</phone:PhoneApplicationPage>

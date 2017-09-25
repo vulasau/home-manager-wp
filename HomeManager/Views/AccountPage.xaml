@@ -1,0 +1,98 @@
+﻿<phone:PhoneApplicationPage x:Class="HomeManager.Views.AccountPage"
+							xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+							xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+							xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+							xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+							xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+							xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+							xmlns:conv="clr-namespace:HomeManager.Views.Converters"
+							xmlns:uc="clr-namespace:HomeManager.Views.Controls"
+							xmlns:cmshell="clr-namespace:Caliburn.Micro.BindableAppBar;assembly=Caliburn.Micro.BindableAppBar"
+							FontFamily="{StaticResource PhoneFontFamilyNormal}"
+							FontSize="{StaticResource PhoneFontSizeNormal}"
+							Foreground="{StaticResource PhoneForegroundBrush}"
+							SupportedOrientations="Portrait"
+							Orientation="Portrait"
+							mc:Ignorable="d"
+							shell:SystemTray.IsVisible="True">
+
+	<Grid x:Name="LayoutRoot"
+		  Background="Transparent">
+		<Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+		<StackPanel Grid.Row="0">
+			<TextBlock Text="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}"
+					   Style="{StaticResource PhoneTextNormalStyle}" />
+			<TextBlock Text="{Binding Path=LocalizedResources.AccountPageTitle, Source={StaticResource LocalizedStrings}}"
+					   Style="{StaticResource TextBlockPageHeaderStyle}" />
+		</StackPanel>
+
+		<Grid x:Name="ContentPanel"
+			  Grid.Row="1">
+			<StackPanel>
+				<TextBlock Text="{Binding Path=LocalizedResources.NameHeader, Source={StaticResource LocalizedStrings}}"
+						   Style="{StaticResource TextBlockHeaderVerticalStyle}" />
+				<TextBox Name="NameTextBox"
+						 Text="{Binding State.Name, Mode=TwoWay}"
+						 InputScope="Text"
+						 Style="{StaticResource TextBoxInlineTopHeaderedStyle}" />
+				<TextBlock Text="{Binding Path=LocalizedResources.AccountNameErrorText, Source={StaticResource LocalizedStrings}}"
+						   Visibility="{Binding NameError, Converter={StaticResource BoolToVisibilityConverter}}"
+						   Style="{StaticResource TextBlockErrorStyle}" />
+
+
+				<StackPanel>
+					<CheckBox Grid.ColumnSpan="2"
+							  Name="LimitCheckBox"
+							  Margin="0 -10 0 -10"
+							  IsChecked="{Binding State.Limited, Mode=TwoWay}"
+							  Content="{Binding Path=LocalizedResources.LimitAccountHeader, Source={StaticResource LocalizedStrings}}" />
+
+					<Grid Visibility="{Binding ElementName=LimitCheckBox, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="90" />
+						</Grid.ColumnDefinitions>
+						<StackPanel>
+							<TextBlock Text="{Binding Path=LocalizedResources.LimitHeader, Source={StaticResource LocalizedStrings}}"
+									   Style="{StaticResource TextBlockHeaderVerticalStyle}" />
+							<TextBox Text="{Binding State.Limit, Mode=TwoWay, Converter={StaticResource OneWayToSourceBindingConverter}}"
+									 Style="{StaticResource TextBoxInlineTopHeaderedStyle}"
+									 InputScope="Number" />
+						</StackPanel>
+						<TextBlock Grid.Column="1"
+								   Text="{Binding DefaultCurrency}"
+								   FontSize="30"
+								   Margin="0 0 0 15"
+								   VerticalAlignment="Bottom" />
+					</Grid>
+				</StackPanel>
+
+				<StackPanel Visibility="{Binding ElementName=LimitCheckBox, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}"
+							Margin="10 0">
+					<TextBlock Text="{Binding Path=LocalizedResources.LimitInformationHeader, Source={StaticResource LocalizedStrings}}"
+							   Visibility="{Binding Limit, Converter={StaticResource NullToVisibilityConverter}}"
+							   Style="{StaticResource TextBlockHeaderStyle}" />
+					<uc:LimitInfoControl Limit="{Binding Limit}"
+										 DisplayLimitName="False"
+										 Visibility="{Binding Limit, Converter={StaticResource NullToVisibilityConverter}}" />
+				</StackPanel>
+
+				<cmshell:BindableAppBar IsVisible="True">
+					<cmshell:BindableAppBarButton Text="{Binding Path=LocalizedResources.UpdateButtonText, Source={StaticResource LocalizedStrings}}"
+												  IconUri="/Icons/Application/Save.png"
+												  IsEnabled="{Binding Ready}"
+												  Click="OnSaveClick" />
+					<cmshell:BindableAppBarButton Text="{Binding Path=LocalizedResources.DeleteButtonText, Source={StaticResource LocalizedStrings}}"
+												  Visibility="{Binding CanRemove, Converter={StaticResource BoolToVisibilityConverter}}"
+												  IconUri="/Icons/Application/Delete.png"
+												  Click="OnRemoveClick" />
+				</cmshell:BindableAppBar>
+			</StackPanel>
+		</Grid>
+	</Grid>
+
+</phone:PhoneApplicationPage>

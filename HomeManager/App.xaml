@@ -1,0 +1,301 @@
+﻿<Application x:Class="HomeManager.App"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+			 xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+			 xmlns:conv="clr-namespace:HomeManager.Views.Converters"
+			 xmlns:wpt="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit">
+
+	<Application.Resources>
+		<local:LocalizedStrings xmlns:local="clr-namespace:HomeManager"
+								x:Key="LocalizedStrings" />
+		<!--Converters-->
+		<conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+		<conv:DateTimeToStringConverter x:Key="DateTimeToStringConverter" />
+		<conv:NullToBooleanConverter x:Key="NullToBooleanConverter" />
+		<conv:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+		<conv:OneWayToSourceBindingConverter x:Key="OneWayToSourceBindingConverter" />
+		<conv:LocalizedEnumConverter x:Key="LocalizedEnumConverter" />
+		<conv:ReversedBooleanConverter x:Key="ReversedBooleanConverter" />
+		<conv:NavigationConverter x:Key="NavigationConverter" />
+		<conv:AccountVisibilityConverter x:Key="AccountVisibilityConverter" />
+		<!--/-->
+
+		<!--PivotItem-->
+		<Style TargetType="phone:PivotItem">
+			<Setter Property="Padding"
+					Value="0 -15 0 0" />
+		</Style>
+		<!--/-->
+
+		<!--TextBlock-->
+		<Style x:Key="TextBlockPageHeaderStyle"
+			   TargetType="TextBlock">
+			<Setter Property="Margin"
+					Value="10 0 0 0" />
+			<Setter Property="FontSize"
+					Value="52" />
+		</Style>
+
+		<Style x:Key="TextBlockTabHeaderStyle"
+			   TargetType="TextBlock">
+			<Setter Property="Margin"
+					Value="0 0 0 0" />
+			<Setter Property="FontSize"
+					Value="44" />
+			<Setter Property="VerticalAlignment"
+					Value="Center" />
+			<Setter Property="HorizontalAlignment"
+					Value="Left" />
+		</Style>
+
+		<Style TargetType="TextBlock"
+			   x:Key="TextBlockHeaderStyle">
+			<Setter Property="VerticalAlignment"
+					Value="Bottom" />
+			<Setter Property="HorizontalAlignment"
+					Value="Left" />
+			<Setter Property="Foreground"
+					Value="Gray" />
+			<Setter Property="FontSize"
+					Value="20" />
+		</Style>
+
+		<Style TargetType="TextBlock"
+			   BasedOn="{StaticResource TextBlockHeaderStyle}"
+			   x:Key="TextBlockHeaderHorizontalStyle">
+			<Setter Property="VerticalAlignment"
+					Value="Top" />
+			<Setter Property="Margin"
+					Value="10 0 10 0" />
+		</Style>
+
+		<Style x:Key="TextBlockHeaderVerticalStyle"
+			   BasedOn="{StaticResource TextBlockHeaderStyle}"
+			   TargetType="TextBlock">
+			<Setter Property="Margin"
+					Value="10 0 0 0" />
+		</Style>
+
+		<Style x:Key="TextBlockErrorStyle"
+			   BasedOn="{StaticResource TextBlockHeaderStyle}"
+			   TargetType="TextBlock">
+			<Setter Property="Foreground"
+					Value="Red" />
+			<Setter Property="Margin"
+					Value="10 -10 0 0" />
+		</Style>
+
+		<Style x:Key="TextBlockListItemStyle"
+			   TargetType="TextBlock">
+			<Setter Property="Margin"
+					Value="10 0 0 0" />
+			<Setter Property="FontSize"
+					Value="40" />
+			<Setter Property="VerticalAlignment"
+					Value="Center" />
+		</Style>
+
+		<Style x:Key="TextBlockInputHeaderStyle"
+			   TargetType="TextBlock">
+			<Setter Property="Margin"
+					Value="10 5 0 0" />
+			<Setter Property="Foreground"
+					Value="Gray" />
+			<Setter Property="TextWrapping"
+					Value="Wrap" />
+		</Style>
+		<!--/-->
+
+		<!--TextBox-->
+		<Style x:Key="TextBoxInlineTopHeaderedStyle"
+			   TargetType="TextBox">
+			<Setter Property="VerticalAlignment"
+					Value="Top" />
+			<Setter Property="Margin"
+					Value="0 -3 0 0" />
+			<Setter Property="Height"
+					Value="75" />
+		</Style>
+
+		<Style x:Key="TextBoxInlineLeftHeaderedStyle"
+			   TargetType="TextBox">
+			<Setter Property="VerticalAlignment"
+					Value="Top" />
+			<Setter Property="Height"
+					Value="75" />
+		</Style>
+
+		<Style x:Key="TextBoxSearchStyle"
+			   TargetType="TextBox">
+			<Setter Property="VerticalAlignment"
+					Value="Bottom" />
+			<Setter Property="Margin"
+					Value="0 0 -10 0" />
+			<Setter Property="Background"
+					Value="Transparent" />
+			<Setter Property="BorderThickness"
+					Value="0 0 0 1" />
+			<Setter Property="TabIndex"
+					Value="100" />
+			<Setter Property="BorderBrush">
+				<Setter.Value>
+					<SolidColorBrush Color="LightGray"
+									 Opacity="0.5" />
+				</Setter.Value>
+			</Setter>
+			<Setter Property="Foreground">
+				<Setter.Value>
+					<SolidColorBrush Color="{StaticResource PhoneAccentColor}" />
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<!--/-->
+
+		<!--Rectangle-->
+		<Style x:Key="RectangleImageContainerStyle" 
+				TargetType="Rectangle">
+			<Setter Property="Width"
+					Value="35" />
+			<Setter Property="Height"
+					Value="35" />
+			<Setter Property="Stretch"
+					Value="Fill" />
+			<Setter Property="Fill"
+					Value="{StaticResource PhoneForegroundBrush}" />
+		</Style>
+
+		<Style x:Key="RectangleImageContainerBigStyle"
+			   BasedOn="{StaticResource RectangleImageContainerStyle}"
+			   TargetType="Rectangle">
+			<Setter Property="Width"
+					Value="60" />
+			<Setter Property="Height"
+					Value="60" />
+		</Style>
+		<!--/-->
+
+		<!--Button-->
+		<Style x:Key="ButtonInlineStyle"
+			   TargetType="Button">
+			<Setter Property="Height"
+					Value="75" />
+			<Setter Property="Margin"
+					Value="-10 0" />
+			<Setter Property="Padding"
+					Value="0" />
+			<Setter Property="VerticalAlignment"
+					Value="Bottom" />
+		</Style>
+
+		<DataTemplate x:Key="ButtonIconAddTemplate">
+			<StackPanel Orientation="Horizontal">
+				<Rectangle Style="{StaticResource RectangleImageContainerStyle}"
+						   Tag="/Icons/Application/Black/Save.png">
+					<Rectangle.OpacityMask>
+						<ImageBrush ImageSource="/Icons/Application/Save.png"/>
+					</Rectangle.OpacityMask>
+				</Rectangle>
+				<TextBlock Text="{Binding Path=LocalizedResources.AddButtonShortText, Source={StaticResource LocalizedStrings}}"
+						   TextTrimming="WordEllipsis"
+						   VerticalAlignment="Center" />
+			</StackPanel>
+		</DataTemplate>
+		<!--/-->
+
+		<!--ListPicker-->
+		<DataTemplate x:Key="ListPickerHeaderTemplate">
+			<TextBlock Text="{Binding}"
+					   Style="{StaticResource TextBlockHeaderStyle}" />
+		</DataTemplate>
+
+		<Style x:Key="ListPickerBaseStyle"
+			   TargetType="wpt:ListPicker">
+			<Setter Property="VerticalAlignment"
+					Value="Top" />
+			<Setter Property="HorizontalAlignment"
+					Value="Stretch" />
+			<Setter Property="BorderBrush"
+					Value="{StaticResource PhoneBorderBrush}" />
+			<Setter Property="HeaderTemplate"
+					Value="{StaticResource ListPickerHeaderTemplate}" />
+		</Style>
+
+		<Style x:Key="ListPickerAccountStyle"
+			   TargetType="wpt:ListPicker">
+			<Setter Property="VerticalAlignment"
+					Value="Top" />
+			<Setter Property="HorizontalAlignment"
+					Value="Stretch" />
+			<Setter Property="ExpansionMode"
+					Value="FullScreenOnly" />
+			<Setter Property="BorderBrush"
+					Value="Transparent" />
+			<Setter Property="BorderThickness"
+					Value="0" />
+			<Setter Property="Height"
+					Value="45" />
+			<Setter Property="Margin"
+					Value="10 0 0 0" />
+			<Setter Property="Padding"
+					Value="0" />
+			<Setter Property="FontSize"
+					Value="20" />
+		</Style>
+
+		<Style x:Key="ListPickerInlineStyle"
+			   BasedOn="{StaticResource ListPickerBaseStyle}"
+			   TargetType="wpt:ListPicker">
+			<Setter Property="Height"
+					Value="90" />
+			<Setter Property="Margin"
+					Value="0" />
+			<Setter Property="Padding"
+					Value="0" />
+			<Setter Property="ExpansionMode"
+					Value="FullScreenOnly" />
+		</Style>
+
+		<Style x:Key="ListPickerBigStyle"
+			   BasedOn="{StaticResource ListPickerBaseStyle}"
+			   TargetType="wpt:ListPicker">
+			<Setter Property="Height"
+					Value="140" />
+			<Setter Property="Width"
+					Value="120" />
+			<Setter Property="ExpansionMode"
+					Value="FullScreenOnly" />
+		</Style>	
+		<!--/-->
+
+		<!--DatePicker-->
+		<DataTemplate x:Key="DatePickerHeaderTemplate">
+			<TextBlock Text="{Binding }"
+					   Style="{StaticResource TextBlockHeaderStyle}" />
+		</DataTemplate>
+
+		<Style x:Key="DatePickerInlineStyle"
+			   TargetType="wpt:DatePicker">
+			<Setter Property="Margin"
+					Value="0" />
+			<Setter Property="Padding"
+					Value="0" />
+			<Setter Property="VerticalAlignment"
+					Value="Top" />
+			<Setter Property="HorizontalAlignment"
+					Value="Stretch" />
+			<Setter Property="HeaderTemplate"
+					Value="{StaticResource DatePickerHeaderTemplate}" />
+		</Style>
+		<!--/-->
+
+	</Application.Resources>
+
+	<Application.ApplicationLifetimeObjects>
+		<shell:PhoneApplicationService Launching="Application_Launching"
+									   Closing="Application_Closing"
+									   Activated="Application_Activated"
+									   Deactivated="Application_Deactivated" />
+	</Application.ApplicationLifetimeObjects>
+
+</Application>
